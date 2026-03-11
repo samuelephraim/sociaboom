@@ -1126,23 +1126,21 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:60px
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://js.paystack.co/v1/inline.js"></script>
 <script src="https://sdk.monnify.com/plugin/monnify.js"></script>
 <script>
-// ─── CONFIG ───
+// --- CONFIG ---
 const MONNIFY_API_KEY   = 'MK_LIVE_XK9KYCHYQY';
 const MONNIFY_CONTRACT  = '2076360645';
 const MONNIFY_CURRENCY  = 'NGN';
 const PAYSTACK_KEY      = 'pk_live_6b829e70468a6ad20b8878b7a7af910acbba983e';
 
-// ─── PEAKERR API CONFIG ───
-// ⚠️ PASTE YOUR PEAKERR API KEY BELOW (between the quotes)
+// --- PRICING ---
+const RATE_PER_1000 = 2800; // NGN2,800 per 1,000 -- matching followersandviews.com
+
+// --- PEAKERR API CONFIG ---
+// [Warning] PASTE YOUR PEAKERR API KEY BELOW (between the quotes)
 const PEAKERR_API_KEY = '523fab34f1464c4c9ddf2574d0d0e2fd';
 const PEAKERR_API_URL = 'https://peakerr.com/api/v2';
 
-// ─── JUSTANOTHERPANEL API CONFIG ───
-// ⚠️ PASTE YOUR JUSTANOTHERPANEL API KEY BELOW (between the quotes)
-const JAP_API_KEY = 'PASTE_YOUR_JAP_API_KEY_HERE';
-const JAP_API_URL = 'https://justanotherpanel.com/api/v2';
-
-// ─── PEAKERR API FUNCTIONS ───
+// --- PEAKERR API FUNCTIONS ---
 async function peakerrGetServices() {
   try {
     const res = await fetch(`${PEAKERR_API_URL}?action=services&key=${PEAKERR_API_KEY}`);
@@ -1186,48 +1184,23 @@ async function peakerrGetBalance() {
   } catch(e) { console.error('Peakerr balance error:', e); return null; }
 }
 
-// ─── JUSTANOTHERPANEL API FUNCTIONS ───
-async function japPlaceOrder(serviceId, link, quantity) {
-  try {
-    const params = new URLSearchParams({ action:'add', key:JAP_API_KEY, service:serviceId, link:link, quantity:quantity });
-    const res = await fetch(JAP_API_URL, { method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body:params.toString() });
-    const data = await res.json();
-    return data;
-  } catch(e) { console.error('JAP order error:', e); return null; }
-}
-
-// ─── SMART DUAL SUPPLIER ROUTING ───
-// Peakerr = primary, JustAnotherPanel = backup
+// --- AUTO DELIVER VIA PEAKERR ---
 async function autoDeliverOrder(orderData) {
-  const serviceId = 1;
-
-  // Try Peakerr first
-  if (PEAKERR_API_KEY && PEAKERR_API_KEY !== 'PASTE_YOUR_PEAKERR_API_KEY_HERE') {
-    try {
-      const result = await peakerrPlaceOrder(serviceId, orderData.link, orderData.quantity);
-      if (result && result.order) {
-        console.log('✅ Delivered via Peakerr! Order ID:', result.order);
-        return result.order;
-      }
-    } catch(e) { console.log('Peakerr failed, trying JAP...'); }
+  if (!PEAKERR_API_KEY || PEAKERR_API_KEY === 'PASTE_YOUR_PEAKERR_API_KEY_HERE') {
+    console.log('Peakerr key not set -- manual fulfillment needed');
+    return false;
   }
-
-  // Fallback to JustAnotherPanel
-  if (JAP_API_KEY && JAP_API_KEY !== 'PASTE_YOUR_JAP_API_KEY_HERE') {
-    try {
-      const result = await japPlaceOrder(serviceId, orderData.link, orderData.quantity);
-      if (result && result.order) {
-        console.log('✅ Delivered via JustAnotherPanel! Order ID:', result.order);
-        return result.order;
-      }
-    } catch(e) { console.log('JAP also failed.'); }
-  }
-
-  console.log('⚠️ Both suppliers failed — manual fulfillment needed');
+  try {
+    const result = await peakerrPlaceOrder(1, orderData.link, orderData.quantity);
+    if (result && result.order) {
+      console.log('[Done] Delivered via Peakerr! Order ID:', result.order);
+      return result.order;
+    }
+  } catch(e) { console.log('Peakerr failed:', e); }
   return false;
 }
 
-// ─── STATE ───
+// --- STATE ---
 let currentUser  = null;
 let users        = JSON.parse(localStorage.getItem('sb_users')   || '{}');
 let orders       = JSON.parse(localStorage.getItem('sb_orders')  || '[]');
@@ -1242,76 +1215,76 @@ function saveData() {
   localStorage.setItem('sb_tickets', JSON.stringify(tickets));
 }
 
-// ─── SERVICES DATA ───
+// --- SERVICES DATA ---
 const SERVICES = [
-  // ── INSTAGRAM ──
-  {id:101,platform:'instagram',name:'Instagram Followers — 99 Day Refill',badges:['hot'],price:'₦2,800',min:'10',speed:'0-30 min'},
-  {id:102,platform:'instagram',name:'Instagram Followers — 99 Day Refill | Standard',badges:[],price:'₦3,000',min:'10',speed:'0-25 min'},
-  {id:103,platform:'instagram',name:'Instagram Followers — 99 Day Refill | Premium',badges:['fast'],price:'₦3,200',min:'10',speed:'0-17 min'},
-  {id:104,platform:'instagram',name:'Instagram Followers — High Quality',badges:['ng'],price:'₦2,500',min:'100',speed:'0-1 hr'},
-  {id:106,platform:'instagram',name:'Instagram Likes — Posts / IGTV / Reels',badges:['fast'],price:'₦2,000',min:'100',speed:'0-33 min'},
-  {id:108,platform:'instagram',name:'Instagram Views — Video / IGTV / Reels',badges:['fast'],price:'₦500',min:'50',speed:'0-13 min'},
-  {id:109,platform:'instagram',name:'Instagram Reels Views',badges:['hot'],price:'₦500',min:'100',speed:'0-13 min'},
-  // ── TIKTOK ──
-  {id:201,platform:'tiktok',name:'TikTok Followers — Standard',badges:['hot'],price:'₦4,500',min:'10',speed:'0-6 hrs'},
-  {id:202,platform:'tiktok',name:'TikTok Followers — Premium',badges:[],price:'₦5,580',min:'100',speed:'6-12 hrs'},
-  {id:204,platform:'tiktok',name:'TikTok Views',badges:['fast'],price:'₦250',min:'100',speed:'0-5 min'},
-  {id:205,platform:'tiktok',name:'TikTok Likes — Non Drop',badges:['ng','fast'],price:'₦1,000',min:'10',speed:'0-1 hr'},
-  {id:206,platform:'tiktok',name:'TikTok Likes — No Refill',badges:[],price:'₦800',min:'10',speed:'0-23 min'},
-  {id:207,platform:'tiktok',name:'TikTok Live Stream Views | 15 Mins',badges:[],price:'₦3,222',min:'100',speed:'0-2 hrs'},
-  {id:208,platform:'tiktok',name:'TikTok Live Stream Views | 30 Mins',badges:[],price:'₦4,744',min:'100',speed:'0-3 hrs'},
-  {id:209,platform:'tiktok',name:'TikTok Live Stream Views | 60 Mins',badges:[],price:'₦7,787',min:'100',speed:'0-5 hrs'},
-  // ── YOUTUBE ──
-  {id:301,platform:'youtube',name:'YouTube Subscribers — Nigerian 🇳🇬',badges:['ng'],price:'₦700',min:'50',speed:'1-3 hrs'},
-  {id:302,platform:'youtube',name:'YouTube Subscribers — Worldwide',badges:[],price:'₦500',min:'50',speed:'1-6 hrs'},
-  {id:303,platform:'youtube',name:'YouTube Views — Non Drop',badges:['fast'],price:'₦300',min:'500',speed:'0-30 min'},
-  {id:304,platform:'youtube',name:'YouTube Likes',badges:['fast'],price:'₦400',min:'100',speed:'0-1 hr'},
-  {id:305,platform:'youtube',name:'YouTube Watch Time (hours)',badges:[],price:'₦3,500',min:'100',speed:'3-7 days'},
-  // ── TWITTER/X ──
-  {id:401,platform:'twitter',name:'Twitter/X Likes — Nigerian 🇳🇬',badges:['ng','hot'],price:'₦1,500',min:'100',speed:'0-2 hrs'},
-  {id:402,platform:'twitter',name:'Twitter/X Retweets — Nigerian',badges:['ng'],price:'₦1,500',min:'100',speed:'0-2 hrs'},
-  {id:403,platform:'twitter',name:'Twitter/X Views + Impressions',badges:[],price:'₦800',min:'100',speed:'0-2 hrs'},
-  {id:404,platform:'twitter',name:'Twitter/X Followers — Worldwide',badges:[],price:'₦800',min:'100',speed:'0-2 hrs'},
-  // ── FACEBOOK ──
-  {id:501,platform:'facebook',name:'Facebook Page Followers — Non Drop',badges:['hot'],price:'₦3,000',min:'10',speed:'0-12 hrs'},
-  {id:503,platform:'facebook',name:'Facebook Post Likes — Nigerian',badges:['ng','fast'],price:'₦500',min:'50',speed:'0-1 hr'},
-  {id:504,platform:'facebook',name:'Facebook Video Views',badges:['fast'],price:'₦150',min:'500',speed:'0-30 min'},
-  {id:505,platform:'facebook',name:'Facebook Post Reactions',badges:[],price:'₦500',min:'50',speed:'0-2 hrs'},
-  {id:506,platform:'facebook',name:'Facebook Reels Views',badges:[],price:'₦300',min:'100',speed:'0-1 hr'},
-  {id:507,platform:'facebook',name:'Facebook Group Members',badges:[],price:'₦2,000',min:'50',speed:'1-6 hrs'},
-  // ── TELEGRAM ──
-  {id:601,platform:'telegram',name:'Telegram Channel Members',badges:['ng'],price:'₦1,500',min:'100',speed:'0-3 hrs'},
-  {id:602,platform:'telegram',name:'Telegram Channel Members — Alternative',badges:[],price:'₦800',min:'100',speed:'0-3 hrs'},
-  {id:603,platform:'telegram',name:'Telegram Post Views',badges:['fast'],price:'₦100',min:'500',speed:'0-10 min'},
-  {id:604,platform:'telegram',name:'Telegram Reactions',badges:['fast'],price:'₦300',min:'100',speed:'0-30 min'},
-  {id:605,platform:'telegram',name:'Telegram Premium Members',badges:['hot'],price:'₦5,000',min:'10',speed:'0-6 hrs'},
-  // ── WHATSAPP ──
-  {id:701,platform:'whatsapp',name:'WhatsApp Channel Members — Nigerian 🇳🇬',badges:['ng','hot'],price:'₦1,500',min:'100',speed:'0-3 hrs'},
-  {id:702,platform:'whatsapp',name:'WhatsApp Channel Members — Worldwide',badges:[],price:'₦1,200',min:'100',speed:'0-3 hrs'},
-  // ── LINKEDIN ──
-  {id:801,platform:'linkedin',name:'LinkedIn Followers — Nigerian 🇳🇬',badges:['ng'],price:'₦2,000',min:'50',speed:'1-6 hrs'},
-  {id:802,platform:'linkedin',name:'LinkedIn Connections',badges:[],price:'₦2,500',min:'50',speed:'1-12 hrs'},
-  {id:803,platform:'linkedin',name:'LinkedIn Post Likes',badges:['fast'],price:'₦800',min:'50',speed:'0-2 hrs'},
-  // ── SNAPCHAT ──
-  {id:901,platform:'snapchat',name:'Snapchat Followers',badges:[],price:'₦1,500',min:'100',speed:'1-6 hrs'},
-  {id:902,platform:'snapchat',name:'Snapchat Story Views',badges:['fast'],price:'₦300',min:'100',speed:'0-30 min'},
-  // ── PINTEREST ──
-  {id:1001,platform:'pinterest',name:'Pinterest Followers — Nigerian 🇳🇬',badges:['ng'],price:'₦1,200',min:'100',speed:'1-6 hrs'},
-  {id:1002,platform:'pinterest',name:'Pinterest Followers — Worldwide',badges:[],price:'₦800',min:'100',speed:'1-6 hrs'},
-  {id:1003,platform:'pinterest',name:'Pinterest Saves/Repins',badges:[],price:'₦500',min:'50',speed:'0-3 hrs'},
-  // ── SPOTIFY ──
-  {id:1101,platform:'spotify',name:'Spotify Followers',badges:[],price:'₦1,000',min:'100',speed:'1-6 hrs'},
-  {id:1102,platform:'spotify',name:'Spotify Free Plays',badges:['hot'],price:'₦300',min:'1000',speed:'0-2 hrs'},
-  {id:1103,platform:'spotify',name:'Spotify Monthly Listeners',badges:[],price:'₦1,500',min:'500',speed:'1-6 hrs'},
-  {id:1104,platform:'spotify',name:'Spotify Saves',badges:[],price:'₦500',min:'100',speed:'0-3 hrs'},
-  // ── THREADS ──
-  {id:1201,platform:'threads',name:'Threads Followers — Nigerian 🇳🇬',badges:['ng','hot'],price:'₦1,200',min:'100',speed:'0-3 hrs'},
-  {id:1202,platform:'threads',name:'Threads Followers — Worldwide',badges:[],price:'₦800',min:'100',speed:'0-3 hrs'},
-  {id:1203,platform:'threads',name:'Threads Likes',badges:['fast'],price:'₦300',min:'50',speed:'0-1 hr'},
-  // ── REDDIT ──
-  {id:1301,platform:'reddit',name:'Reddit Upvotes',badges:['fast'],price:'₦500',min:'20',speed:'0-30 min'},
-  {id:1302,platform:'reddit',name:'Reddit Followers',badges:[],price:'₦1,200',min:'50',speed:'1-6 hrs'},
-  {id:1303,platform:'reddit',name:'Reddit Post Karma',badges:[],price:'₦2,000',min:'50',speed:'1-12 hrs'},
+  // -- INSTAGRAM --
+  {id:101,platform:'instagram',name:'Instagram Followers -- 99 Day Refill',badges:['hot'],price:'NGN2,800',min:'10',speed:'0-30 min'},
+  {id:102,platform:'instagram',name:'Instagram Followers -- 99 Day Refill | Standard',badges:[],price:'NGN3,000',min:'10',speed:'0-25 min'},
+  {id:103,platform:'instagram',name:'Instagram Followers -- 99 Day Refill | Premium',badges:['fast'],price:'NGN3,200',min:'10',speed:'0-17 min'},
+  {id:104,platform:'instagram',name:'Instagram Followers -- High Quality',badges:['ng'],price:'NGN2,500',min:'100',speed:'0-1 hr'},
+  {id:106,platform:'instagram',name:'Instagram Likes -- Posts / IGTV / Reels',badges:['fast'],price:'NGN2,000',min:'100',speed:'0-33 min'},
+  {id:108,platform:'instagram',name:'Instagram Views -- Video / IGTV / Reels',badges:['fast'],price:'NGN500',min:'50',speed:'0-13 min'},
+  {id:109,platform:'instagram',name:'Instagram Reels Views',badges:['hot'],price:'NGN500',min:'100',speed:'0-13 min'},
+  // -- TIKTOK --
+  {id:201,platform:'tiktok',name:'TikTok Followers -- Standard',badges:['hot'],price:'NGN4,500',min:'10',speed:'0-6 hrs'},
+  {id:202,platform:'tiktok',name:'TikTok Followers -- Premium',badges:[],price:'NGN5,580',min:'100',speed:'6-12 hrs'},
+  {id:204,platform:'tiktok',name:'TikTok Views',badges:['fast'],price:'NGN250',min:'100',speed:'0-5 min'},
+  {id:205,platform:'tiktok',name:'TikTok Likes -- Non Drop',badges:['ng','fast'],price:'NGN1,000',min:'10',speed:'0-1 hr'},
+  {id:206,platform:'tiktok',name:'TikTok Likes -- No Refill',badges:[],price:'NGN800',min:'10',speed:'0-23 min'},
+  {id:207,platform:'tiktok',name:'TikTok Live Stream Views | 15 Mins',badges:[],price:'NGN3,222',min:'100',speed:'0-2 hrs'},
+  {id:208,platform:'tiktok',name:'TikTok Live Stream Views | 30 Mins',badges:[],price:'NGN4,744',min:'100',speed:'0-3 hrs'},
+  {id:209,platform:'tiktok',name:'TikTok Live Stream Views | 60 Mins',badges:[],price:'NGN7,787',min:'100',speed:'0-5 hrs'},
+  // -- YOUTUBE --
+  {id:301,platform:'youtube',name:'YouTube Subscribers -- Nigerian NG',badges:['ng'],price:'NGN700',min:'50',speed:'1-3 hrs'},
+  {id:302,platform:'youtube',name:'YouTube Subscribers -- Worldwide',badges:[],price:'NGN500',min:'50',speed:'1-6 hrs'},
+  {id:303,platform:'youtube',name:'YouTube Views -- Non Drop',badges:['fast'],price:'NGN300',min:'500',speed:'0-30 min'},
+  {id:304,platform:'youtube',name:'YouTube Likes',badges:['fast'],price:'NGN400',min:'100',speed:'0-1 hr'},
+  {id:305,platform:'youtube',name:'YouTube Watch Time (hours)',badges:[],price:'NGN3,500',min:'100',speed:'3-7 days'},
+  // -- TWITTER/X --
+  {id:401,platform:'twitter',name:'Twitter/X Likes -- Nigerian NG',badges:['ng','hot'],price:'NGN1,500',min:'100',speed:'0-2 hrs'},
+  {id:402,platform:'twitter',name:'Twitter/X Retweets -- Nigerian',badges:['ng'],price:'NGN1,500',min:'100',speed:'0-2 hrs'},
+  {id:403,platform:'twitter',name:'Twitter/X Views + Impressions',badges:[],price:'NGN800',min:'100',speed:'0-2 hrs'},
+  {id:404,platform:'twitter',name:'Twitter/X Followers -- Worldwide',badges:[],price:'NGN800',min:'100',speed:'0-2 hrs'},
+  // -- FACEBOOK --
+  {id:501,platform:'facebook',name:'Facebook Page Followers -- Non Drop',badges:['hot'],price:'NGN3,000',min:'10',speed:'0-12 hrs'},
+  {id:503,platform:'facebook',name:'Facebook Post Likes -- Nigerian',badges:['ng','fast'],price:'NGN500',min:'50',speed:'0-1 hr'},
+  {id:504,platform:'facebook',name:'Facebook Video Views',badges:['fast'],price:'NGN150',min:'500',speed:'0-30 min'},
+  {id:505,platform:'facebook',name:'Facebook Post Reactions',badges:[],price:'NGN500',min:'50',speed:'0-2 hrs'},
+  {id:506,platform:'facebook',name:'Facebook Reels Views',badges:[],price:'NGN300',min:'100',speed:'0-1 hr'},
+  {id:507,platform:'facebook',name:'Facebook Group Members',badges:[],price:'NGN2,000',min:'50',speed:'1-6 hrs'},
+  // -- TELEGRAM --
+  {id:601,platform:'telegram',name:'Telegram Channel Members',badges:['ng'],price:'NGN1,500',min:'100',speed:'0-3 hrs'},
+  {id:602,platform:'telegram',name:'Telegram Channel Members -- Alternative',badges:[],price:'NGN800',min:'100',speed:'0-3 hrs'},
+  {id:603,platform:'telegram',name:'Telegram Post Views',badges:['fast'],price:'NGN100',min:'500',speed:'0-10 min'},
+  {id:604,platform:'telegram',name:'Telegram Reactions',badges:['fast'],price:'NGN300',min:'100',speed:'0-30 min'},
+  {id:605,platform:'telegram',name:'Telegram Premium Members',badges:['hot'],price:'NGN5,000',min:'10',speed:'0-6 hrs'},
+  // -- WHATSAPP --
+  {id:701,platform:'whatsapp',name:'WhatsApp Channel Members -- Nigerian NG',badges:['ng','hot'],price:'NGN1,500',min:'100',speed:'0-3 hrs'},
+  {id:702,platform:'whatsapp',name:'WhatsApp Channel Members -- Worldwide',badges:[],price:'NGN1,200',min:'100',speed:'0-3 hrs'},
+  // -- LINKEDIN --
+  {id:801,platform:'linkedin',name:'LinkedIn Followers -- Nigerian NG',badges:['ng'],price:'NGN2,000',min:'50',speed:'1-6 hrs'},
+  {id:802,platform:'linkedin',name:'LinkedIn Connections',badges:[],price:'NGN2,500',min:'50',speed:'1-12 hrs'},
+  {id:803,platform:'linkedin',name:'LinkedIn Post Likes',badges:['fast'],price:'NGN800',min:'50',speed:'0-2 hrs'},
+  // -- SNAPCHAT --
+  {id:901,platform:'snapchat',name:'Snapchat Followers',badges:[],price:'NGN1,500',min:'100',speed:'1-6 hrs'},
+  {id:902,platform:'snapchat',name:'Snapchat Story Views',badges:['fast'],price:'NGN300',min:'100',speed:'0-30 min'},
+  // -- PINTEREST --
+  {id:1001,platform:'pinterest',name:'Pinterest Followers -- Nigerian NG',badges:['ng'],price:'NGN1,200',min:'100',speed:'1-6 hrs'},
+  {id:1002,platform:'pinterest',name:'Pinterest Followers -- Worldwide',badges:[],price:'NGN800',min:'100',speed:'1-6 hrs'},
+  {id:1003,platform:'pinterest',name:'Pinterest Saves/Repins',badges:[],price:'NGN500',min:'50',speed:'0-3 hrs'},
+  // -- SPOTIFY --
+  {id:1101,platform:'spotify',name:'Spotify Followers',badges:[],price:'NGN1,000',min:'100',speed:'1-6 hrs'},
+  {id:1102,platform:'spotify',name:'Spotify Free Plays',badges:['hot'],price:'NGN300',min:'1000',speed:'0-2 hrs'},
+  {id:1103,platform:'spotify',name:'Spotify Monthly Listeners',badges:[],price:'NGN1,500',min:'500',speed:'1-6 hrs'},
+  {id:1104,platform:'spotify',name:'Spotify Saves',badges:[],price:'NGN500',min:'100',speed:'0-3 hrs'},
+  // -- THREADS --
+  {id:1201,platform:'threads',name:'Threads Followers -- Nigerian NG',badges:['ng','hot'],price:'NGN1,200',min:'100',speed:'0-3 hrs'},
+  {id:1202,platform:'threads',name:'Threads Followers -- Worldwide',badges:[],price:'NGN800',min:'100',speed:'0-3 hrs'},
+  {id:1203,platform:'threads',name:'Threads Likes',badges:['fast'],price:'NGN300',min:'50',speed:'0-1 hr'},
+  // -- REDDIT --
+  {id:1301,platform:'reddit',name:'Reddit Upvotes',badges:['fast'],price:'NGN500',min:'20',speed:'0-30 min'},
+  {id:1302,platform:'reddit',name:'Reddit Followers',badges:[],price:'NGN1,200',min:'50',speed:'1-6 hrs'},
+  {id:1303,platform:'reddit',name:'Reddit Post Karma',badges:[],price:'NGN2,000',min:'50',speed:'1-12 hrs'},
 ];
 
 function renderServices(filter='all', search='') {
@@ -1326,10 +1299,10 @@ function renderServices(filter='all', search='') {
   tbody.innerHTML = filtered.map(s => `
     <tr>
       <td><span class="sid">#${s.id}</span></td>
-      <td><div class="sname">${s.name}</div><div>${s.badges.map(b => `<span class="sbadge ${b}">${b==='ng'?'🇳🇬 Nigeria':b==='hot'?'🔥 HOT':b==='fast'?'⚡ Fast':b}</span>`).join('')}</div></td>
+      <td><div class="sname">${s.name}</div><div>${s.badges.map(b => `<span class="sbadge ${b}">${b==='ng'?'NG Nigeria':b==='hot'?'HOT HOT':b==='fast'?'[Fast] Fast':b}</span>`).join('')}</div></td>
       <td><span class="sprice">${s.price}</span></td>
       <td><span class="smin">${s.min}</span></td>
-      <td><span class="sspeed">⚡ ${s.speed}</span></td>
+      <td><span class="sspeed">[Fast] ${s.speed}</span></td>
       <td><button class="btn-order" onclick="openOrderModal(9999,'${s.name.replace(/'/g,"\\'")}')">ORDER</button></td>
     </tr>
   `).join('');
@@ -1345,7 +1318,7 @@ function filterServices(f, btn) {
 function searchServices(v) { renderServices(currentFilter, v); }
 // renderServices called in main DOMContentLoaded below
 
-// ─── AUTH ───
+// --- AUTH ---
 function openAuth(tab) {
   document.getElementById('authModal').classList.add('active');
   switchTab(tab);
@@ -1365,9 +1338,9 @@ function registerUser() {
   const phone = document.getElementById('regPhone').value.trim();
   const pass  = document.getElementById('regPass').value;
   const ref   = document.getElementById('regRef').value.trim();
-  if (!name||!email||!pass) return showToast('⚠️ Missing Fields','Please fill in all required fields.',true);
-  if (!email.includes('@')) return showToast('⚠️ Invalid Email','Please enter a valid email.',true);
-  if (users[email]) return showToast('⚠️ Account Exists','This email is already registered.',true);
+  if (!name||!email||!pass) return showToast('[Warning] Missing Fields','Please fill in all required fields.',true);
+  if (!email.includes('@')) return showToast('[Warning] Invalid Email','Please enter a valid email.',true);
+  if (users[email]) return showToast('[Warning] Account Exists','This email is already registered.',true);
   const refCode = 'SB' + Math.random().toString(36).slice(2,10).toUpperCase();
   users[email] = { name, email, phone, pass: btoa(pass), refCode, wallet: 0, referrals: 0, apiKey: 'SB_API_' + Math.random().toString(36).slice(2,18).toUpperCase(), joined: new Date().toLocaleDateString() };
   if (ref) {
@@ -1377,18 +1350,18 @@ function registerUser() {
   saveData();
   closeModal('authModal');
   setCurrentUser(users[email]);
-  showToast('🎉 Welcome!', `Account created! Welcome to SocialBoom, ${name}!`);
+  showToast('[Welcome] Welcome!', `Account created! Welcome to SocialBoom, ${name}!`);
 }
 
 function loginUser() {
   const email = document.getElementById('loginEmail').value.trim();
   const pass  = document.getElementById('loginPass').value;
-  if (!email||!pass) return showToast('⚠️ Missing Fields','Enter your email and password.',true);
+  if (!email||!pass) return showToast('[Warning] Missing Fields','Enter your email and password.',true);
   const user = users[email];
-  if (!user || user.pass !== btoa(pass)) return showToast('❌ Login Failed','Wrong email or password.',true);
+  if (!user || user.pass !== btoa(pass)) return showToast('[Error] Login Failed','Wrong email or password.',true);
   closeModal('authModal');
   setCurrentUser(user);
-  showToast('✅ Welcome Back!', `Logged in as ${user.name}`);
+  showToast('[Done] Welcome Back!', `Logged in as ${user.name}`);
 }
 
 function setCurrentUser(user) {
@@ -1397,7 +1370,7 @@ function setCurrentUser(user) {
   const ub = document.getElementById('userBar');
   ub.style.display = 'flex';
   document.getElementById('topbarName').textContent = user.name.split(' ')[0];
-  document.getElementById('topbarBal').textContent = '₦' + (user.wallet||0).toLocaleString();
+  document.getElementById('topbarBal').textContent = 'NGN' + (user.wallet||0).toLocaleString();
   document.getElementById('supportFloat').style.display = 'none';
   // Show admin button if admin
   const adminBtn = document.getElementById('adminBtn');
@@ -1410,10 +1383,10 @@ function logoutUser() {
   document.getElementById('userBar').style.display = 'none';
   document.getElementById('supportFloat').style.display = 'block';
   closeDash();
-  showToast('👋 Logged Out', 'See you soon!');
+  showToast('[Bye] Logged Out', 'See you soon!');
 }
 
-// ─── DASHBOARD ───
+// --- DASHBOARD ---
 function openDash(sec='overview') {
   if (!currentUser) return openAuth('login');
   document.getElementById('dashOverlay').classList.add('active');
@@ -1448,18 +1421,18 @@ function refreshDash() {
   const bal       = currentUser.wallet || 0;
   document.getElementById('dTotalOrders').textContent  = myOrders.length;
   document.getElementById('dActiveOrders').textContent = active;
-  document.getElementById('dWalletBal').textContent    = '₦' + bal.toLocaleString();
+  document.getElementById('dWalletBal').textContent    = 'NGN' + bal.toLocaleString();
   document.getElementById('dReferrals').textContent    = currentUser.referrals || 0;
-  document.getElementById('dashWalBal').textContent    = '₦' + bal.toLocaleString();
-  document.getElementById('walletAmount').textContent  = '₦' + bal.toFixed(2);
-  document.getElementById('topbarBal').textContent     = '₦' + bal.toLocaleString();
+  document.getElementById('dashWalBal').textContent    = 'NGN' + bal.toLocaleString();
+  document.getElementById('walletAmount').textContent  = 'NGN' + bal.toFixed(2);
+  document.getElementById('topbarBal').textContent     = 'NGN' + bal.toLocaleString();
 }
 
 function renderOrders() {
   const myOrders = orders.filter(o => o.email === currentUser.email);
   const tbody = document.getElementById('ordersTableBody');
   if (!myOrders.length) {
-    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:32px;">No orders yet. Place your first order! 🚀</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:32px;">No orders yet. Place your first order! [Active]</td></tr>';
     return;
   }
   tbody.innerHTML = myOrders.reverse().map(o => `
@@ -1467,7 +1440,7 @@ function renderOrders() {
       <td style="font-family:'Space Mono',monospace;font-size:0.78rem;">${o.id.slice(0,14)}...</td>
       <td>${o.platform}</td><td>${o.service}</td><td>${o.country||'Nigeria'}</td>
       <td>${(o.quantity||1000).toLocaleString()}</td>
-      <td style="color:var(--accent);font-family:'Space Mono',monospace;">₦${(o.amount||0).toLocaleString()}</td>
+      <td style="color:var(--accent);font-family:'Space Mono',monospace;">NGN${(o.amount||0).toLocaleString()}</td>
       <td><span class="status-badge ${o.status.toLowerCase()}">${o.status}</span></td>
       <td style="color:var(--muted);font-size:0.8rem;">${o.date}</td>
     </tr>
@@ -1480,34 +1453,34 @@ function renderReferral() {
   document.getElementById('refLinkVal').textContent = link;
   document.getElementById('refCount').textContent   = currentUser.referrals || 0;
   const earned = (currentUser.referrals || 0) * 500;
-  document.getElementById('refEarned').textContent  = '₦' + earned.toLocaleString();
-  document.getElementById('refPending').textContent = '₦0';
+  document.getElementById('refEarned').textContent  = 'NGN' + earned.toLocaleString();
+  document.getElementById('refPending').textContent = 'NGN0';
 }
 
 function renderApiKey() {
   if (!currentUser) return;
-  document.getElementById('dashApiKey').textContent = '••••••••••••••••••••••••••';
+  document.getElementById('dashApiKey').textContent = '';
   apiKeyVisible = false;
 }
 
 function toggleApiKey() {
   if (!currentUser) return;
   apiKeyVisible = !apiKeyVisible;
-  document.getElementById('dashApiKey').textContent = apiKeyVisible ? currentUser.apiKey : '••••••••••••••••••••••••••';
+  document.getElementById('dashApiKey').textContent = apiKeyVisible ? currentUser.apiKey : '';
   document.querySelector('#sec-api .btn-copy').textContent = apiKeyVisible ? 'HIDE' : 'SHOW';
 }
 function copyDashApiKey() {
   if (!currentUser) return;
-  navigator.clipboard.writeText(currentUser.apiKey).then(() => showToast('✅ Copied!','API Key copied to clipboard.'));
+  navigator.clipboard.writeText(currentUser.apiKey).then(() => showToast('[Done] Copied!','API Key copied to clipboard.'));
 }
 
 function renderTickets() {
   const myTickets = tickets.filter(t => t.email === currentUser?.email);
   const el = document.getElementById('ticketsList');
-  if (!myTickets.length) { el.innerHTML = '<div style="color:var(--muted);font-size:0.88rem;padding:16px 0;">No tickets yet. We\'re here if you need us! 😊</div>'; return; }
+  if (!myTickets.length) { el.innerHTML = '<div style="color:var(--muted);font-size:0.88rem;padding:16px 0;">No tickets yet. We\'re here if you need us! </div>'; return; }
   el.innerHTML = myTickets.reverse().map(t => `
     <div class="ticket-item">
-      <div class="ticket-info"><div class="tsub">${t.subject}</div><div class="tid">#${t.id} · ${t.date}</div></div>
+      <div class="ticket-info"><div class="tsub">${t.subject}</div><div class="tid">#${t.id}  ${t.date}</div></div>
       <span class="status-badge ${t.status.toLowerCase()}">${t.status}</span>
     </div>
   `).join('');
@@ -1518,15 +1491,15 @@ function submitTicket() {
   const subject = document.getElementById('ticketSubject').value;
   const orderId = document.getElementById('ticketOrderId').value;
   const msg     = document.getElementById('ticketMsg').value.trim();
-  if (!msg) return showToast('⚠️ Empty Message','Please describe your issue.',true);
+  if (!msg) return showToast('[Warning] Empty Message','Please describe your issue.',true);
   const ticket = { id: 'T' + Date.now(), email: currentUser.email, subject, orderId, message: msg, status: 'Open', date: new Date().toLocaleDateString() };
   tickets.push(ticket); saveData();
   document.getElementById('ticketMsg').value = '';
   renderTickets();
-  showToast('🎫 Ticket Submitted!', 'We\'ll respond within 24 hours.');
+  showToast('[Ticket] Ticket Submitted!', 'We\'ll respond within 24 hours.');
 }
 
-// ─── ORDER ───
+// --- ORDER ---
 let currentOrderAmount = 9999;
 function openOrderModal(amount, name) {
   if (!currentUser) return openAuth('login');
@@ -1536,9 +1509,9 @@ function openOrderModal(amount, name) {
   document.getElementById('orderEmail').value = currentUser.email;
   document.getElementById('orderName').value  = currentUser.name;
   document.getElementById('orderQuantity').value = '';
-  document.getElementById('summaryQty').textContent = '—';
-  document.getElementById('summaryRate').textContent = '—';
-  document.getElementById('summaryTotal').textContent = '₦0';
+  document.getElementById('summaryQty').textContent = '--';
+  document.getElementById('summaryRate').textContent = '--';
+  document.getElementById('summaryTotal').textContent = 'NGN0';
   document.getElementById('orderModal').classList.add('active');
 }
 
@@ -1546,18 +1519,18 @@ function selectPay(m) {
   selectedPay = m;
   document.getElementById('monnifyPay').classList.toggle('selected', m==='monnify');
   document.getElementById('paystackPay').classList.toggle('selected', m==='paystack');
-  document.getElementById('payBtn').textContent = m==='monnify' ? '🔒 PAY WITH MONNIFY NOW' : '💳 PAY WITH PAYSTACK NOW';
+  document.getElementById('payBtn').textContent = m==='monnify' ? ' PAY WITH MONNIFY NOW' : ' PAY WITH PAYSTACK NOW';
   document.getElementById('payBtn').style.background = m==='paystack' ? '#0BA4DB' : 'var(--accent)';
 }
 
 function placeOrderFromWallet() {
   if (!currentUser) return openAuth('login');
   const qty = parseInt(document.getElementById('dOrderQuantity').value) || 0;
-  if (qty < 100) return showToast('⚠️ Invalid Quantity','Please enter at least 100.',true);
+  if (qty < 100) return showToast('[Warning] Invalid Quantity','Please enter at least 100.',true);
   const pkg = Math.ceil((qty / 1000) * RATE_PER_1000);
-  if ((currentUser.wallet||0) < pkg) return showToast('❌ Insufficient Balance',`You need ₦${pkg.toLocaleString()} but have ₦${(currentUser.wallet||0).toLocaleString()}. Please add funds.`,true);
+  if ((currentUser.wallet||0) < pkg) return showToast('[Error] Insufficient Balance',`You need NGN${pkg.toLocaleString()} but have NGN${(currentUser.wallet||0).toLocaleString()}. Please add funds.`,true);
   const link = document.getElementById('dOrderLink').value.trim();
-  if (!link) return showToast('⚠️ Missing Link','Please enter your username or profile URL.',true);
+  if (!link) return showToast('[Warning] Missing Link','Please enter your username or profile URL.',true);
   currentUser.wallet = (currentUser.wallet||0) - pkg;
   saveOrder({
     email: currentUser.email,
@@ -1571,24 +1544,22 @@ function placeOrderFromWallet() {
 
 function getQty(amt) { const map={9999:1000,19999:2500,34999:5000,59999:10000,99999:25000}; return map[amt]||1000; }
 
-// ─── PRICE CALCULATOR ───
-// Rate per 1000 in Naira (your profit margin built in)
-const RATE_PER_1000 = 2800; // ₦2,800 per 1000 — matching followersandviews.com
+// --- PRICE CALCULATOR ---
 
 function calcOrderPrice() {
   const qty = parseInt(document.getElementById('orderQuantity').value) || 0;
   const rate = RATE_PER_1000;
   const total = Math.ceil((qty / 1000) * rate);
-  document.getElementById('summaryQty').textContent = qty ? qty.toLocaleString() : '—';
-  document.getElementById('summaryRate').textContent = qty ? '₦' + rate + ' / 1,000' : '—';
-  document.getElementById('summaryTotal').textContent = qty ? '₦' + total.toLocaleString() : '₦0';
+  document.getElementById('summaryQty').textContent = qty ? qty.toLocaleString() : '--';
+  document.getElementById('summaryRate').textContent = qty ? 'NGN' + rate + ' / 1,000' : '--';
+  document.getElementById('summaryTotal').textContent = qty ? 'NGN' + total.toLocaleString() : 'NGN0';
 }
 
 function calcDashPrice() {
   const qty = parseInt(document.getElementById('dOrderQuantity').value) || 0;
   const total = Math.ceil((qty / 1000) * RATE_PER_1000);
-  document.getElementById('dSummaryQty').textContent = qty ? qty.toLocaleString() : '—';
-  document.getElementById('dSummaryTotal').textContent = qty ? '₦' + total.toLocaleString() : '₦0';
+  document.getElementById('dSummaryQty').textContent = qty ? qty.toLocaleString() : '--';
+  document.getElementById('dSummaryTotal').textContent = qty ? 'NGN' + total.toLocaleString() : 'NGN0';
 }
 
 async function saveOrder(data) {
@@ -1597,15 +1568,15 @@ async function saveOrder(data) {
   orders.push(order);
   saveData();
   // Auto-deliver via Peakerr
-  showToast('⚡ Processing...', 'Sending your order to our delivery system...');
+  showToast('[Fast] Processing...', 'Sending your order to our delivery system...');
   const peakerrOrderId = await autoDeliverOrder(data);
   if (peakerrOrderId) {
     order.status = 'Active';
     order.peakerrId = peakerrOrderId;
-    showToast('🚀 Order Active!', 'Your order is now being delivered automatically!');
+    showToast('[Active] Order Active!', 'Your order is now being delivered automatically!');
   } else {
     order.status = 'Pending';
-    showToast('📦 Order Received!', 'Your order is queued and will be processed shortly.');
+    showToast('[Order] Order Received!', 'Your order is queued and will be processed shortly.');
   }
   saveData();
   refreshDash();
@@ -1615,9 +1586,9 @@ function processPayment() {
   const email  = document.getElementById('orderEmail').value.trim();
   const name   = document.getElementById('orderName').value.trim();
   const qty    = parseInt(document.getElementById('orderQuantity').value) || 0;
-  if (!email||!name) return showToast('⚠️ Missing Details','Please enter your name and email.',true);
-  if (!email.includes('@')) return showToast('⚠️ Invalid Email','Enter a valid email address.',true);
-  if (qty < 100) return showToast('⚠️ Invalid Quantity','Please enter at least 100.',true);
+  if (!email||!name) return showToast('[Warning] Missing Details','Please enter your name and email.',true);
+  if (!email.includes('@')) return showToast('[Warning] Invalid Email','Enter a valid email address.',true);
+  if (qty < 100) return showToast('[Warning] Invalid Quantity','Please enter at least 100.',true);
   const amount = Math.ceil((qty / 1000) * RATE_PER_1000);
   closeModal('orderModal');
   const ref = 'SB_' + Date.now() + '_' + Math.random().toString(36).slice(2,6).toUpperCase();
@@ -1626,21 +1597,14 @@ function processPayment() {
     if (currentUser) { currentUser = users[email]; refreshDash(); }
   };
   if (selectedPay === 'paystack') {
-    const handler = PaystackPop.setup({ key: PAYSTACK_KEY, email, amount: amount * 100, currency: 'NGN', ref, callback: r => { if(r.status==='success') onSuccess(); else showToast('❌ Failed','Payment failed. Try again.',true); }, onClose: () => showToast('ℹ️ Cancelled','Payment was not completed.',true) });
+    const handler = PaystackPop.setup({ key: PAYSTACK_KEY, email, amount: amount * 100, currency: 'NGN', ref, callback: r => { if(r.status==='success') onSuccess(); else showToast('[Error] Failed','Payment failed. Try again.',true); }, onClose: () => showToast(' Cancelled','Payment was not completed.',true) });
     handler.openIframe();
   } else {
-    MonnifySDK.initialize({ amount, currency: MONNIFY_CURRENCY, reference: ref, customerFullName: name, customerEmail: email, apiKey: MONNIFY_API_KEY, contractCode: MONNIFY_CONTRACT, paymentDescription: `SocialBoom Order — ${ref}`, isTestMode: false, paymentMethods: ['CARD','ACCOUNT_TRANSFER','USSD','PHONE_NUMBER'], onComplete: r => { if(r.status==='SUCCESS'||r.paymentStatus==='PAID') onSuccess(); else showToast('❌ Failed','Payment failed.',true); }, onClose: () => showToast('ℹ️ Cancelled','Payment not completed.',true) });
-  }
-}
-  if (selectedPay === 'paystack') {
-    const handler = PaystackPop.setup({ key: PAYSTACK_KEY, email, amount: amount * 100, currency: 'NGN', ref, callback: r => { if(r.status==='success') onSuccess(); else showToast('❌ Failed','Payment failed. Try again.',true); }, onClose: () => showToast('ℹ️ Cancelled','Payment was not completed.',true) });
-    handler.openIframe();
-  } else {
-    MonnifySDK.initialize({ amount, currency: MONNIFY_CURRENCY, reference: ref, customerFullName: name, customerEmail: email, apiKey: MONNIFY_API_KEY, contractCode: MONNIFY_CONTRACT, paymentDescription: `SocialBoom Order — ${ref}`, isTestMode: false, paymentMethods: ['CARD','ACCOUNT_TRANSFER','USSD','PHONE_NUMBER'], onComplete: r => { if(r.status==='SUCCESS'||r.paymentStatus==='PAID') onSuccess(); else showToast('❌ Failed','Payment failed.',true); }, onClose: () => showToast('ℹ️ Cancelled','Payment not completed.',true) });
+    MonnifySDK.initialize({ amount, currency: MONNIFY_CURRENCY, reference: ref, customerFullName: name, customerEmail: email, apiKey: MONNIFY_API_KEY, contractCode: MONNIFY_CONTRACT, paymentDescription: `SocialBoom Order -- ${ref}`, isTestMode: false, paymentMethods: ['CARD','ACCOUNT_TRANSFER','USSD','PHONE_NUMBER'], onComplete: r => { if(r.status==='SUCCESS'||r.paymentStatus==='PAID') onSuccess(); else showToast('[Error] Failed','Payment failed.',true); }, onClose: () => showToast(' Cancelled','Payment not completed.',true) });
   }
 }
 
-// ─── WALLET FUNDING ───
+// --- WALLET FUNDING ---
 function selectFundMethod(m) {
   selectedFund = m;
   ['monnify','paystack','bank'].forEach(x => document.getElementById('f'+x).classList.toggle('selected', x===m));
@@ -1648,32 +1612,32 @@ function selectFundMethod(m) {
 function addFunds() {
   if (!currentUser) return openAuth('login');
   const amt = parseInt(document.getElementById('fundAmount').value);
-  if (!amt || amt < 500) return showToast('⚠️ Minimum ₦500','Please enter at least ₦500.',true);
+  if (!amt || amt < 500) return showToast('[Warning] Minimum NGN500','Please enter at least NGN500.',true);
   const ref = 'SB_FUND_' + Date.now();
-  const onSuccess = () => { currentUser.wallet = (currentUser.wallet||0) + amt; users[currentUser.email] = currentUser; saveData(); refreshDash(); showToast('✅ Wallet Funded!', `₦${amt.toLocaleString()} added to your wallet!`); };
+  const onSuccess = () => { currentUser.wallet = (currentUser.wallet||0) + amt; users[currentUser.email] = currentUser; saveData(); refreshDash(); showToast('[Done] Wallet Funded!', `NGN${amt.toLocaleString()} added to your wallet!`); };
   if (selectedFund === 'paystack') {
-    const handler = PaystackPop.setup({ key: PAYSTACK_KEY, email: currentUser.email, amount: amt * 100, currency: 'NGN', ref, callback: r => { if(r.status==='success') onSuccess(); else showToast('❌ Failed','Payment failed.',true); }, onClose: () => showToast('ℹ️ Cancelled','Not completed.',true) });
+    const handler = PaystackPop.setup({ key: PAYSTACK_KEY, email: currentUser.email, amount: amt * 100, currency: 'NGN', ref, callback: r => { if(r.status==='success') onSuccess(); else showToast('[Error] Failed','Payment failed.',true); }, onClose: () => showToast(' Cancelled','Not completed.',true) });
     handler.openIframe();
   } else {
-    MonnifySDK.initialize({ amount: amt, currency: MONNIFY_CURRENCY, reference: ref, customerFullName: currentUser.name, customerEmail: currentUser.email, apiKey: MONNIFY_API_KEY, contractCode: MONNIFY_CONTRACT, paymentDescription: 'SocialBoom Wallet Top-Up', isTestMode: false, paymentMethods: ['CARD','ACCOUNT_TRANSFER','USSD','PHONE_NUMBER'], onComplete: r => { if(r.status==='SUCCESS'||r.paymentStatus==='PAID') onSuccess(); else showToast('❌ Failed','Payment failed.',true); }, onClose: () => showToast('ℹ️ Cancelled','Not completed.',true) });
+    MonnifySDK.initialize({ amount: amt, currency: MONNIFY_CURRENCY, reference: ref, customerFullName: currentUser.name, customerEmail: currentUser.email, apiKey: MONNIFY_API_KEY, contractCode: MONNIFY_CONTRACT, paymentDescription: 'SocialBoom Wallet Top-Up', isTestMode: false, paymentMethods: ['CARD','ACCOUNT_TRANSFER','USSD','PHONE_NUMBER'], onComplete: r => { if(r.status==='SUCCESS'||r.paymentStatus==='PAID') onSuccess(); else showToast('[Error] Failed','Payment failed.',true); }, onClose: () => showToast(' Cancelled','Not completed.',true) });
   }
 }
 
-// ─── HELPERS ───
+// --- HELPERS ---
 function copyRefLink() {
   if (!currentUser) return;
   const link = `${location.origin}${location.pathname}?ref=${currentUser.refCode}`;
-  navigator.clipboard.writeText(link).then(() => showToast('✅ Copied!','Referral link copied!'));
+  navigator.clipboard.writeText(link).then(() => showToast('[Done] Copied!','Referral link copied!'));
 }
 function shareRef(p) {
   const link = encodeURIComponent(`${location.origin}${location.pathname}?ref=${currentUser?.refCode}`);
-  const text = encodeURIComponent('Join SocialBoom — Nigeria\'s #1 SMM Panel! Get real followers, likes & views. Use my link:');
+  const text = encodeURIComponent('Join SocialBoom -- Nigeria\'s #1 SMM Panel! Get real followers, likes & views. Use my link:');
   const urls = { whatsapp:`https://wa.me/?text=${text}%20${link}`, facebook:`https://facebook.com/sharer/sharer.php?u=${link}`, twitter:`https://twitter.com/intent/tweet?text=${text}&url=${link}` };
   window.open(urls[p],'_blank');
 }
 function copyApiKey() {
   if (!currentUser) return;
-  navigator.clipboard.writeText(currentUser.apiKey).then(() => showToast('✅ Copied!','API Key copied!'));
+  navigator.clipboard.writeText(currentUser.apiKey).then(() => showToast('[Done] Copied!','API Key copied!'));
 }
 function showToast(title, msg, isError=false) {
   const t = document.getElementById('toast');
@@ -1685,13 +1649,13 @@ function showToast(title, msg, isError=false) {
 }
 function scrollToTop() { window.scrollTo({top:0,behavior:'smooth'}); }
 
-// ─── ADMIN CONFIG ───
+// --- ADMIN CONFIG ---
 const ADMIN_EMAIL    = 'asuquoephraim85@gmail.com';
 const ADMIN_PASSWORD = 'SocialBoom@Admin2026';
 
-// ─── ADMIN FUNCTIONS ───
+// --- ADMIN FUNCTIONS ---
 function openAdmin() {
-  if (!currentUser || currentUser.email !== ADMIN_EMAIL) return showToast('❌ Access Denied','Admin only!',true);
+  if (!currentUser || currentUser.email !== ADMIN_EMAIL) return showToast('[Error] Access Denied','Admin only!',true);
   document.getElementById('adminOverlay').classList.add('active');
   document.getElementById('adminDate').textContent = new Date().toDateString();
   document.body.style.overflow = 'hidden';
@@ -1722,24 +1686,24 @@ function refreshAdmin() {
   document.getElementById('aPendingOrders').textContent = pending.length;
   document.getElementById('aActiveOrders').textContent  = active.length;
   document.getElementById('aTotalUsers').textContent    = allUsers.length;
-  document.getElementById('aTotalRevenue').textContent  = '₦' + revenue.toLocaleString();
+  document.getElementById('aTotalRevenue').textContent  = 'NGN' + revenue.toLocaleString();
   document.getElementById('aTotalTickets').textContent  = openTickets.length;
 
   // Recent pending
   const rpl = document.getElementById('recentPendingList');
   if (!pending.length) {
-    rpl.innerHTML = '<div style="color:var(--muted);font-size:0.88rem;">✅ No pending orders! All fulfilled.</div>';
+    rpl.innerHTML = '<div style="color:var(--muted);font-size:0.88rem;">[Done] No pending orders! All fulfilled.</div>';
   } else {
     rpl.innerHTML = pending.slice(0,5).map(o => `
       <div style="background:var(--card2);border:1px solid rgba(245,196,0,0.2);padding:12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
         <div>
-          <div style="font-weight:700;font-size:0.88rem;">${o.platform} — ${o.service}</div>
+          <div style="font-weight:700;font-size:0.88rem;">${o.platform} -- ${o.service}</div>
           <div style="font-family:'Space Mono',monospace;font-size:0.75rem;color:var(--accent2);margin:3px 0;">${o.link||'No link'}</div>
-          <div style="font-size:0.75rem;color:var(--muted);">${o.email} · ${o.quantity?.toLocaleString()||1000} qty · ₦${(o.amount||0).toLocaleString()}</div>
+          <div style="font-size:0.75rem;color:var(--muted);">${o.email}  ${o.quantity?.toLocaleString()||1000} qty  NGN${(o.amount||0).toLocaleString()}</div>
         </div>
         <div style="display:flex;gap:6px;flex-wrap:wrap;">
-          <button class="copy-link" onclick="copyText('${o.link||''}')">📋 COPY LINK</button>
-          <button class="btn-complete" onclick="markComplete('${o.id}')">✅ DONE</button>
+          <button class="copy-link" onclick="copyText('${o.link||''}')">[Copied] COPY LINK</button>
+          <button class="btn-complete" onclick="markComplete('${o.id}')">[Done] DONE</button>
         </div>
       </div>
     `).join('');
@@ -1752,7 +1716,7 @@ function refreshAdmin() {
   rbp.innerHTML = Object.entries(platRev).sort((a,b)=>b[1]-a[1]).map(([p,r]) => `
     <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(42,42,62,0.4);font-size:0.88rem;">
       <span>${p}</span>
-      <span style="color:var(--accent);font-family:'Space Mono',monospace;font-weight:700;">₦${r.toLocaleString()}</span>
+      <span style="color:var(--accent);font-family:'Space Mono',monospace;font-weight:700;">NGN${r.toLocaleString()}</span>
     </div>
   `).join('') || '<div style="color:var(--muted);font-size:0.88rem;">No revenue data yet.</div>';
 
@@ -1769,21 +1733,21 @@ function refreshAdmin() {
       <td>${o.service}</td>
       <td>
         <div style="display:flex;align-items:center;gap:6px;">
-          <span style="font-family:'Space Mono',monospace;font-size:0.75rem;color:var(--accent2);max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${o.link||'—'}</span>
-          <button class="copy-link" onclick="copyText('${o.link||''}')">📋</button>
+          <span style="font-family:'Space Mono',monospace;font-size:0.75rem;color:var(--accent2);max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${o.link||'--'}</span>
+          <button class="copy-link" onclick="copyText('${o.link||''}')">[Copied]</button>
         </div>
       </td>
       <td style="font-family:'Space Mono',monospace;">${(o.quantity||1000).toLocaleString()}</td>
-      <td style="color:var(--accent);font-family:'Space Mono',monospace;">₦${(o.amount||0).toLocaleString()}</td>
+      <td style="color:var(--accent);font-family:'Space Mono',monospace;">NGN${(o.amount||0).toLocaleString()}</td>
       <td style="color:var(--muted);font-size:0.78rem;">${o.date}</td>
       <td>
         <div style="display:flex;gap:4px;">
-          <button class="btn-complete" onclick="markComplete('${o.id}')">✅ Done</button>
-          <button class="btn-cancel-order" onclick="markCancelled('${o.id}')">✕</button>
+          <button class="btn-complete" onclick="markComplete('${o.id}')">[Done] Done</button>
+          <button class="btn-cancel-order" onclick="markCancelled('${o.id}')"></button>
         </div>
       </td>
     </tr>
-  `).join('') : '<tr><td colspan="9" style="text-align:center;color:var(--muted);padding:24px;">✅ No pending orders!</td></tr>';
+  `).join('') : '<tr><td colspan="9" style="text-align:center;color:var(--muted);padding:24px;">[Done] No pending orders!</td></tr>';
 
   // Users table
   renderAdminUsers(allUsers);
@@ -1795,7 +1759,7 @@ function refreshAdmin() {
       <td style="font-family:'Space Mono',monospace;font-size:0.75rem;">#${t.id}</td>
       <td style="font-size:0.8rem;">${t.email}</td>
       <td>${t.subject}</td>
-      <td style="font-family:'Space Mono',monospace;font-size:0.75rem;">${t.orderId||'—'}</td>
+      <td style="font-family:'Space Mono',monospace;font-size:0.75rem;">${t.orderId||'--'}</td>
       <td style="max-width:200px;font-size:0.8rem;color:var(--muted);">${t.message?.slice(0,60)}...</td>
       <td><span class="status-badge ${t.status.toLowerCase()}">${t.status}</span></td>
       <td style="font-size:0.78rem;color:var(--muted);">${t.date}</td>
@@ -1814,18 +1778,18 @@ function renderAdminOrders(list) {
       <td>${o.service}</td>
       <td>
         <div style="display:flex;align-items:center;gap:4px;">
-          <span style="font-family:'Space Mono',monospace;font-size:0.72rem;color:var(--accent2);max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${o.link||'—'}</span>
-          ${o.link ? `<button class="copy-link" onclick="copyText('${o.link}')">📋</button>` : ''}
+          <span style="font-family:'Space Mono',monospace;font-size:0.72rem;color:var(--accent2);max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${o.link||'--'}</span>
+          ${o.link ? `<button class="copy-link" onclick="copyText('${o.link}')">[Copied]</button>` : ''}
         </div>
       </td>
       <td style="font-family:'Space Mono',monospace;">${(o.quantity||1000).toLocaleString()}</td>
-      <td style="color:var(--accent);font-family:'Space Mono',monospace;">₦${(o.amount||0).toLocaleString()}</td>
+      <td style="color:var(--accent);font-family:'Space Mono',monospace;">NGN${(o.amount||0).toLocaleString()}</td>
       <td><span class="status-badge ${o.status?.toLowerCase()}">${o.status}</span></td>
       <td style="font-size:0.78rem;color:var(--muted);">${o.date}</td>
       <td>
         <div style="display:flex;gap:4px;">
-          ${o.status!=='Completed'?`<button class="btn-complete" onclick="markComplete('${o.id}')">✅</button>`:''}
-          ${o.status!=='Cancelled'?`<button class="btn-cancel-order" onclick="markCancelled('${o.id}')">✕</button>`:''}
+          ${o.status!=='Completed'?`<button class="btn-complete" onclick="markComplete('${o.id}')">[Done]</button>`:''}
+          ${o.status!=='Cancelled'?`<button class="btn-cancel-order" onclick="markCancelled('${o.id}')"></button>`:''}
         </div>
       </td>
     </tr>
@@ -1840,11 +1804,11 @@ function renderAdminUsers(list) {
     <tr>
       <td style="font-weight:600;">${u.name}</td>
       <td style="font-size:0.8rem;color:var(--accent2);">${u.email}</td>
-      <td style="font-size:0.8rem;">${u.phone||'—'}</td>
-      <td style="color:var(--accent);font-family:'Space Mono',monospace;">₦${(u.wallet||0).toLocaleString()}</td>
+      <td style="font-size:0.8rem;">${u.phone||'--'}</td>
+      <td style="color:var(--accent);font-family:'Space Mono',monospace;">NGN${(u.wallet||0).toLocaleString()}</td>
       <td style="text-align:center;">${userOrders.length}</td>
       <td style="text-align:center;">${u.referrals||0}</td>
-      <td style="font-size:0.78rem;color:var(--muted);">${u.joined||'—'}</td>
+      <td style="font-size:0.78rem;color:var(--muted);">${u.joined||'--'}</td>
     </tr>
   `}).join('') : '<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:24px;">No users yet.</td></tr>';
 }
@@ -1874,25 +1838,25 @@ function filterAdminUsers(search) {
 
 function markComplete(orderId) {
   const order = orders.find(o => o.id === orderId);
-  if (order) { order.status = 'Completed'; saveData(); refreshAdmin(); showToast('✅ Order Completed!', `Order ${orderId.slice(0,14)} marked as completed.`); }
+  if (order) { order.status = 'Completed'; saveData(); refreshAdmin(); showToast('[Done] Order Completed!', `Order ${orderId.slice(0,14)} marked as completed.`); }
 }
 
 function markCancelled(orderId) {
   const order = orders.find(o => o.id === orderId);
-  if (order) { order.status = 'Cancelled'; saveData(); refreshAdmin(); showToast('✕ Order Cancelled', `Order cancelled.`, true); }
+  if (order) { order.status = 'Cancelled'; saveData(); refreshAdmin(); showToast(' Order Cancelled', `Order cancelled.`, true); }
 }
 
 function closeTicket(ticketId) {
   const ticket = tickets.find(t => t.id === ticketId);
-  if (ticket) { ticket.status = 'Closed'; saveData(); refreshAdmin(); showToast('✅ Ticket Closed', 'Ticket has been closed.'); }
+  if (ticket) { ticket.status = 'Closed'; saveData(); refreshAdmin(); showToast('[Done] Ticket Closed', 'Ticket has been closed.'); }
 }
 
 function copyText(text) {
-  if (!text) return showToast('⚠️ Nothing to copy','No link available.',true);
-  navigator.clipboard.writeText(text).then(() => showToast('📋 Copied!', 'Link copied to clipboard!'));
+  if (!text) return showToast('[Warning] Nothing to copy','No link available.',true);
+  navigator.clipboard.writeText(text).then(() => showToast('[Copied] Copied!', 'Link copied to clipboard!'));
 }
 
-// ─── INIT ───
+// --- INIT ---
 window.addEventListener('DOMContentLoaded', () => {
   renderServices();
   const ref = new URLSearchParams(location.search).get('ref');
