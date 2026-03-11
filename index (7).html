@@ -1,0 +1,1904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SocialBoom SMM Panel — #1 Nigerian SMM Supplier</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0a0a0f; --surface:#111118; --card:#16161f; --card2:#1c1c28;
+  --border:#2a2a3e; --accent:#00f5a0; --accent2:#00d9f5; --accent3:#f500a0;
+  --gold:#f5c400; --text:#e8e8f0; --muted:#6b6b8a; --glow:rgba(0,245,160,0.15);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,245,160,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,245,160,0.025) 1px,transparent 1px);background-size:50px 50px;pointer-events:none;z-index:0;animation:gridPan 30s linear infinite;}
+@keyframes gridPan{0%{background-position:0 0}100%{background-position:50px 50px}}
+
+/* TOPBAR */
+.topbar{background:rgba(10,10,15,0.97);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;backdrop-filter:blur(12px);}
+.logo{font-family:'Bebas Neue',cursive;font-size:1.7rem;letter-spacing:3px;color:var(--accent);cursor:pointer;}
+.logo span{color:var(--text);}
+.topbar-right{display:flex;gap:8px;align-items:center;}
+.btn-login{background:transparent;border:1px solid var(--border);color:var(--text);padding:8px 20px;font-size:0.85rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
+.btn-login:hover{border-color:var(--accent);color:var(--accent);}
+.btn-register{background:var(--accent);color:var(--bg);padding:8px 20px;font-size:0.85rem;font-weight:700;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
+.btn-register:hover{background:#00d488;}
+.user-bar{display:none;align-items:center;gap:12px;}
+.user-bar .uname{font-size:0.85rem;color:var(--accent);font-weight:600;}
+.user-bar .ubal{font-size:0.8rem;color:var(--muted);font-family:'Space Mono',monospace;}
+.btn-dashboard{background:var(--accent);color:var(--bg);padding:7px 16px;font-size:0.82rem;font-weight:700;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.btn-logout{background:transparent;border:1px solid var(--border);color:var(--muted);padding:7px 14px;font-size:0.8rem;cursor:pointer;font-family:'DM Sans',sans-serif;}
+
+/* HERO */
+.hero{min-height:88vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:60px 24px;position:relative;overflow:hidden;}
+.hero::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(0,245,160,0.07) 0%,transparent 70%);pointer-events:none;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(0,245,160,0.08);border:1px solid rgba(0,245,160,0.25);padding:7px 18px;font-size:0.76rem;color:var(--accent);font-family:'Space Mono',monospace;letter-spacing:2px;margin-bottom:28px;}
+.hero-badge::before{content:'';width:7px;height:7px;background:var(--accent);border-radius:50%;animation:blink 1.5s infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+.hero h1{font-family:'Bebas Neue',cursive;font-size:clamp(3.5rem,11vw,7.5rem);letter-spacing:4px;line-height:0.92;margin-bottom:24px;}
+.hero h1 .l1{color:var(--accent);display:block;}
+.hero h1 .l2{color:var(--text);display:block;}
+.hero h1 .l3{color:var(--accent2);display:block;}
+.hero-sub{color:var(--muted);font-size:1.05rem;max-width:540px;margin:0 auto 36px;line-height:1.7;}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:56px;}
+.btn-primary{background:var(--accent);color:var(--bg);padding:14px 32px;font-weight:700;font-size:0.95rem;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;letter-spacing:1px;transition:all 0.2s;clip-path:polygon(12px 0%,100% 0%,calc(100% - 12px) 100%,0% 100%);}
+.btn-primary:hover{background:#00d488;transform:translateY(-2px);}
+.btn-outline{background:transparent;color:var(--text);padding:14px 32px;font-size:0.95rem;border:1px solid var(--border);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
+.btn-outline:hover{border-color:var(--accent2);color:var(--accent2);}
+.hero-stats{display:flex;gap:40px;justify-content:center;flex-wrap:wrap;}
+.hstat .num{font-family:'Bebas Neue',cursive;font-size:2.8rem;color:var(--accent);letter-spacing:2px;}
+.hstat .lbl{font-size:0.75rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase;font-family:'Space Mono',monospace;}
+
+/* ANNOUNCE */
+.announce{background:linear-gradient(135deg,rgba(245,0,160,0.15),rgba(0,245,160,0.15));border-top:1px solid rgba(0,245,160,0.2);border-bottom:1px solid rgba(0,245,160,0.2);padding:12px 24px;text-align:center;font-size:0.85rem;color:var(--text);position:relative;}
+.announce strong{color:var(--accent);}
+
+/* SECTION */
+.section{padding:80px 24px;max-width:1200px;margin:0 auto;position:relative;z-index:1;}
+.sec-label{font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:4px;color:var(--accent);text-transform:uppercase;margin-bottom:10px;}
+.sec-title{font-family:'Bebas Neue',cursive;font-size:clamp(2rem,5vw,3.5rem);letter-spacing:3px;margin-bottom:12px;}
+.sec-sub{color:var(--muted);font-size:0.95rem;max-width:560px;line-height:1.7;margin-bottom:40px;}
+.bar{width:50px;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));margin-bottom:28px;}
+
+/* PLATFORM GRID */
+.platforms-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;}
+.plat-card{background:var(--card);border:1px solid var(--border);padding:20px;cursor:pointer;transition:all 0.25s;text-align:center;position:relative;}
+.plat-card:hover{border-color:var(--accent);background:var(--card2);transform:translateY(-3px);}
+.plat-card.active{border-color:var(--accent);background:rgba(0,245,160,0.06);}
+.plat-icon{font-size:2rem;margin-bottom:10px;}
+.plat-name{font-weight:600;font-size:0.9rem;margin-bottom:4px;}
+.plat-count{font-size:0.75rem;color:var(--muted);font-family:'Space Mono',monospace;}
+
+/* SERVICES TABLE */
+.services-wrap{background:var(--surface);border:1px solid var(--border);}
+.svc-filters{display:flex;gap:0;border-bottom:1px solid var(--border);overflow-x:auto;flex-wrap:wrap;}
+.svc-filter{background:transparent;border:none;padding:12px 18px;color:var(--muted);cursor:pointer;font-size:0.82rem;font-family:'DM Sans',sans-serif;white-space:nowrap;border-bottom:2px solid transparent;transition:all 0.2s;}
+.svc-filter.active{color:var(--accent);border-bottom-color:var(--accent);}
+.svc-filter:hover{color:var(--text);}
+.svc-search{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;gap:8px;}
+.svc-search input{flex:1;background:var(--bg);border:1px solid var(--border);padding:8px 14px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:0.88rem;outline:none;}
+.svc-search input:focus{border-color:var(--accent);}
+.svc-table-wrap{overflow-x:auto;max-height:560px;overflow-y:auto;}
+.svc-table{width:100%;border-collapse:collapse;}
+.svc-table th{padding:11px 14px;text-align:left;font-size:0.7rem;letter-spacing:2px;color:var(--muted);font-family:'Space Mono',monospace;text-transform:uppercase;border-bottom:1px solid var(--border);background:rgba(0,0,0,0.3);position:sticky;top:0;z-index:5;}
+.svc-table td{padding:13px 14px;border-bottom:1px solid rgba(42,42,62,0.4);font-size:0.875rem;vertical-align:middle;}
+.svc-table tr:hover td{background:rgba(0,245,160,0.025);}
+.svc-table tr:last-child td{border-bottom:none;}
+.sid{font-family:'Space Mono',monospace;font-size:0.78rem;color:var(--muted);}
+.sname{font-weight:500;max-width:280px;}
+.sbadge{display:inline-block;background:var(--card2);padding:2px 8px;font-size:0.7rem;color:var(--muted);margin-right:4px;margin-bottom:2px;}
+.sbadge.ng{background:rgba(0,245,160,0.1);color:var(--accent);}
+.sbadge.fast{background:rgba(0,217,245,0.1);color:var(--accent2);}
+.sbadge.hot{background:rgba(245,0,160,0.1);color:var(--accent3);}
+.sprice{color:var(--accent);font-weight:700;font-family:'Space Mono',monospace;font-size:0.85rem;}
+.smin{color:var(--muted);font-size:0.8rem;}
+.sspeed{font-size:0.8rem;color:var(--accent2);}
+.btn-order{background:var(--accent);color:var(--bg);border:none;padding:7px 16px;font-size:0.8rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;white-space:nowrap;}
+.btn-order:hover{background:#00d488;}
+
+/* API SECTION */
+.api-box{background:var(--surface);border:1px solid var(--border);padding:40px;position:relative;overflow:hidden;}
+.api-box::before{content:'API';font-family:'Bebas Neue',cursive;font-size:12rem;color:rgba(0,245,160,0.03);position:absolute;right:-30px;top:-30px;line-height:1;pointer-events:none;letter-spacing:-5px;}
+.api-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;}
+@media(max-width:768px){.api-grid{grid-template-columns:1fr;}}
+.api-info h3{font-family:'Bebas Neue',cursive;font-size:2.2rem;letter-spacing:2px;margin-bottom:12px;}
+.api-info p{color:var(--muted);font-size:0.9rem;line-height:1.7;margin-bottom:20px;}
+.api-endpoint{background:var(--bg);border:1px solid var(--border);padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;gap:10px;}
+.method{display:inline-block;padding:3px 9px;font-size:0.7rem;font-weight:700;font-family:'Space Mono',monospace;}
+.method.get{background:rgba(0,245,160,0.2);color:var(--accent);}
+.method.post{background:rgba(245,0,160,0.2);color:var(--accent3);}
+.eurl{font-family:'Space Mono',monospace;font-size:0.8rem;color:var(--accent2);}
+.api-code{background:var(--bg);border:1px solid var(--border);padding:20px;font-family:'Space Mono',monospace;font-size:0.78rem;line-height:1.9;overflow-x:auto;margin-top:16px;}
+.k{color:var(--accent2);} .v{color:var(--gold);} .s{color:var(--accent);}
+.api-key-row{background:var(--card2);border:1px solid var(--border);padding:14px 16px;display:flex;align-items:center;gap:10px;margin-top:16px;}
+.api-key-val{font-family:'Space Mono',monospace;font-size:0.78rem;color:var(--accent);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.btn-copy{background:transparent;border:1px solid var(--border);color:var(--muted);padding:6px 14px;font-size:0.78rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
+.btn-copy:hover{border-color:var(--accent);color:var(--accent);}
+
+/* PRICING */
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:20px;}
+.price-card{background:var(--card);border:1px solid var(--border);padding:32px;position:relative;transition:all 0.3s;}
+.price-card:hover{border-color:var(--accent);transform:translateY(-4px);}
+.price-card.pop{border-color:var(--accent);}
+.pop-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--accent);color:var(--bg);font-size:0.7rem;font-weight:700;padding:4px 16px;font-family:'Space Mono',monospace;letter-spacing:2px;white-space:nowrap;}
+.pname{font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:16px;}
+.pamount{font-family:'Bebas Neue',cursive;font-size:3.8rem;letter-spacing:2px;color:var(--accent);line-height:1;}
+.pamount .curr{font-size:1.6rem;vertical-align:top;margin-top:10px;display:inline-block;}
+.pperiod{font-size:0.82rem;color:var(--muted);margin-bottom:24px;}
+.pfeatures{list-style:none;margin-bottom:28px;}
+.pfeatures li{padding:8px 0;font-size:0.87rem;color:var(--muted);border-bottom:1px solid rgba(42,42,62,0.5);display:flex;align-items:center;gap:8px;}
+.pfeatures li::before{content:'✓';color:var(--accent);font-weight:700;flex-shrink:0;}
+.pfeatures li.hi{color:var(--text);}
+.btn-plan{width:100%;padding:13px;font-size:0.88rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;letter-spacing:1px;transition:all 0.2s;border:1px solid var(--border);background:transparent;color:var(--text);}
+.price-card.pop .btn-plan,.btn-plan:hover{background:var(--accent);color:var(--bg);border-color:var(--accent);}
+
+/* AUTH MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:600;align-items:center;justify-content:center;padding:20px;}
+.modal-overlay.active{display:flex;}
+.modal{background:var(--surface);border:1px solid var(--border);padding:36px;width:100%;max-width:440px;max-height:90vh;overflow-y:auto;position:relative;}
+.modal-close{position:absolute;top:14px;right:16px;background:transparent;border:none;color:var(--muted);font-size:1.4rem;cursor:pointer;}
+.modal-close:hover{color:var(--accent3);}
+.modal-tabs{display:flex;margin-bottom:28px;border-bottom:1px solid var(--border);}
+.tab-btn{flex:1;padding:12px;background:transparent;border:none;color:var(--muted);cursor:pointer;font-size:0.85rem;font-family:'DM Sans',sans-serif;border-bottom:2px solid transparent;transition:all 0.2s;}
+.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);}
+.tab-content{display:none;}
+.tab-content.active{display:block;}
+.form-row{margin-bottom:16px;}
+.form-row label{display:block;font-size:0.72rem;letter-spacing:2px;color:var(--muted);font-family:'Space Mono',monospace;text-transform:uppercase;margin-bottom:8px;}
+.form-row input,.form-row select,.form-row textarea{width:100%;background:var(--bg);border:1px solid var(--border);padding:11px 14px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:0.9rem;outline:none;transition:border-color 0.2s;}
+.form-row input:focus,.form-row select:focus,.form-row textarea:focus{border-color:var(--accent);}
+.form-row select option{background:var(--bg);}
+.btn-submit{width:100%;background:var(--accent);color:var(--bg);border:none;padding:14px;font-size:0.95rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;letter-spacing:1px;margin-top:8px;transition:all 0.2s;}
+.btn-submit:hover{background:#00d488;}
+.modal-sub{font-size:0.82rem;color:var(--muted);text-align:center;margin-top:14px;}
+.modal-sub a{color:var(--accent);cursor:pointer;}
+
+/* ORDER MODAL */
+.order-modal{max-width:520px;}
+.country-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:4px;}
+.country-opt{background:var(--bg);border:1px solid var(--border);padding:10px;cursor:pointer;text-align:center;font-size:0.82rem;transition:all 0.2s;}
+.country-opt:hover,.country-opt.selected{border-color:var(--accent);color:var(--accent);background:rgba(0,245,160,0.05);}
+.pay-options{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0;}
+.pay-opt{background:var(--bg);border:1px solid var(--border);padding:14px;cursor:pointer;text-align:center;transition:all 0.2s;}
+.pay-opt:hover,.pay-opt.selected{border-color:var(--accent);background:rgba(0,245,160,0.05);}
+.pay-opt .pico{font-size:1.4rem;margin-bottom:4px;}
+.pay-opt .pname{font-size:0.82rem;font-weight:700;}
+.pay-opt .psub{font-size:0.72rem;color:var(--muted);}
+.pay-opt.ps.selected{border-color:var(--accent2);background:rgba(0,217,245,0.05);}
+.pay-info{background:rgba(0,245,160,0.04);border:1px solid rgba(0,245,160,0.15);padding:12px 14px;font-size:0.82rem;color:var(--muted);line-height:1.6;margin-bottom:16px;}
+
+/* DASHBOARD */
+.dash-overlay{display:none;position:fixed;inset:0;background:var(--bg);z-index:500;overflow:hidden;}
+.dash-overlay.active{display:flex;}
+.dash-sidebar{width:230px;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto;}
+.dash-logo-bar{padding:20px;border-bottom:1px solid var(--border);font-family:'Bebas Neue',cursive;font-size:1.4rem;letter-spacing:3px;color:var(--accent);}
+.dash-user-info{padding:16px;border-bottom:1px solid var(--border);}
+.dun{font-weight:600;font-size:0.9rem;margin-bottom:2px;}
+.due{font-size:0.75rem;color:var(--muted);}
+.dbal{background:rgba(0,245,160,0.06);border:1px solid rgba(0,245,160,0.15);padding:10px 12px;margin-top:10px;display:flex;justify-content:space-between;align-items:center;}
+.dbal-l{font-size:0.7rem;color:var(--muted);font-family:'Space Mono',monospace;}
+.dbal-a{font-family:'Bebas Neue',cursive;font-size:1.3rem;color:var(--accent);}
+.dash-nav{flex:1;padding:12px 0;}
+.dnav-sep{padding:12px 16px 4px;font-size:0.65rem;color:var(--muted);letter-spacing:3px;text-transform:uppercase;font-family:'Space Mono',monospace;}
+.dnav-item{display:flex;align-items:center;gap:10px;padding:10px 16px;color:var(--muted);cursor:pointer;font-size:0.86rem;transition:all 0.2s;border-left:3px solid transparent;}
+.dnav-item:hover{color:var(--text);background:rgba(255,255,255,0.02);}
+.dnav-item.active{color:var(--accent);background:rgba(0,245,160,0.05);border-left-color:var(--accent);}
+.dash-close-btn{padding:14px 16px;color:var(--muted);cursor:pointer;font-size:0.85rem;border-top:1px solid var(--border);display:flex;align-items:center;gap:8px;}
+.dash-close-btn:hover{color:var(--accent3);}
+.dash-main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+.dash-topbar{padding:16px 24px;border-bottom:1px solid var(--border);background:var(--surface);display:flex;justify-content:space-between;align-items:center;flex-shrink:0;}
+.dash-topbar h2{font-family:'Bebas Neue',cursive;font-size:1.5rem;letter-spacing:2px;}
+.dash-body{flex:1;overflow-y:auto;padding:24px;}
+.dash-sec{display:none;}
+.dash-sec.active{display:block;}
+
+/* DASH STATS */
+.dstats{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin-bottom:24px;}
+.dstat{background:var(--card);border:1px solid var(--border);padding:20px;}
+.dstat-icon{font-size:1.4rem;margin-bottom:8px;}
+.dstat-num{font-family:'Bebas Neue',cursive;font-size:2rem;color:var(--accent);letter-spacing:2px;}
+.dstat-label{font-size:0.75rem;color:var(--muted);font-family:'Space Mono',monospace;letter-spacing:1px;text-transform:uppercase;}
+
+/* WALLET */
+.wallet-card{background:linear-gradient(135deg,#00f5a0,#00d9f5);padding:32px;color:var(--bg);margin-bottom:24px;clip-path:polygon(16px 0%,100% 0%,calc(100% - 16px) 100%,0% 100%);}
+.wbal-label{font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:2px;opacity:0.7;margin-bottom:6px;}
+.wbal-amount{font-family:'Bebas Neue',cursive;font-size:3.5rem;letter-spacing:2px;line-height:1;}
+.wbal-sub{font-size:0.82rem;opacity:0.7;margin-top:4px;}
+.fund-methods{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0;}
+.fund-method{background:var(--card);border:1px solid var(--border);padding:16px;text-align:center;cursor:pointer;transition:all 0.2s;}
+.fund-method:hover,.fund-method.selected{border-color:var(--accent);background:rgba(0,245,160,0.05);}
+.fund-method .ficon{font-size:1.5rem;margin-bottom:6px;}
+.fund-method .fname{font-size:0.8rem;font-weight:600;}
+.fund-method .fsub{font-size:0.7rem;color:var(--muted);}
+.fund-amount-box{display:flex;gap:10px;margin-top:16px;}
+.fund-amount-box input{flex:1;background:var(--bg);border:1px solid var(--border);padding:11px 14px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:0.9rem;outline:none;}
+.fund-amount-box input:focus{border-color:var(--accent);}
+.btn-fund{background:var(--accent);color:var(--bg);border:none;padding:11px 24px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;}
+
+/* ORDERS TABLE */
+.orders-table-wrap{overflow-x:auto;}
+.orders-table{width:100%;border-collapse:collapse;}
+.orders-table th{padding:11px 14px;text-align:left;font-size:0.7rem;letter-spacing:2px;color:var(--muted);font-family:'Space Mono',monospace;text-transform:uppercase;border-bottom:1px solid var(--border);background:var(--card);white-space:nowrap;}
+.orders-table td{padding:13px 14px;border-bottom:1px solid rgba(42,42,62,0.4);font-size:0.85rem;vertical-align:middle;}
+.orders-table tr:hover td{background:rgba(0,245,160,0.02);}
+.status-badge{display:inline-block;padding:3px 10px;font-size:0.72rem;font-weight:700;font-family:'Space Mono',monospace;letter-spacing:1px;}
+.status-badge.pending{background:rgba(245,196,0,0.1);color:var(--gold);}
+.status-badge.active{background:rgba(0,245,160,0.1);color:var(--accent);}
+.status-badge.completed{background:rgba(0,217,245,0.1);color:var(--accent2);}
+.status-badge.cancelled{background:rgba(245,0,160,0.1);color:var(--accent3);}
+
+/* REFER */
+.refer-card{background:var(--card);border:1px solid var(--border);padding:28px;margin-bottom:20px;}
+.ref-link-box{background:var(--bg);border:1px solid var(--border);padding:14px 16px;display:flex;align-items:center;gap:10px;margin:16px 0;}
+.ref-link-val{font-family:'Space Mono',monospace;font-size:0.78rem;color:var(--accent);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.ref-share-btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
+.btn-share{padding:9px 18px;font-size:0.82rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text);font-family:'DM Sans',sans-serif;transition:all 0.2s;}
+.btn-share:hover{border-color:var(--accent);color:var(--accent);}
+.btn-share.wa{border-color:#25d366;color:#25d366;}
+.ref-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px;}
+.rstat{background:var(--card2);border:1px solid var(--border);padding:16px;text-align:center;}
+.rstat .rnum{font-family:'Bebas Neue',cursive;font-size:2rem;color:var(--accent);}
+.rstat .rlbl{font-size:0.72rem;color:var(--muted);font-family:'Space Mono',monospace;}
+
+/* SUPPORT */
+.ticket-form{background:var(--card);border:1px solid var(--border);padding:24px;margin-bottom:20px;}
+.tickets-list{display:flex;flex-direction:column;gap:10px;}
+.ticket-item{background:var(--card);border:1px solid var(--border);padding:16px;display:flex;justify-content:space-between;align-items:center;}
+.ticket-info .tsub{font-weight:600;font-size:0.9rem;}
+.ticket-info .tid{font-size:0.75rem;color:var(--muted);font-family:'Space Mono',monospace;}
+
+/* NEW ORDER FORM */
+.new-order-form{background:var(--card);border:1px solid var(--border);padding:28px;}
+.country-select-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;max-height:220px;overflow-y:auto;margin-bottom:4px;}
+.copt{background:var(--bg);border:1px solid var(--border);padding:8px 10px;cursor:pointer;font-size:0.8rem;display:flex;align-items:center;gap:6px;transition:all 0.2s;}
+.copt:hover,.copt.sel{border-color:var(--accent);color:var(--accent);background:rgba(0,245,160,0.04);}
+.copt.ng{border-color:rgba(0,245,160,0.3);}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--surface);border:1px solid var(--accent);padding:16px 20px;min-width:280px;z-index:999;transform:translateY(100px);opacity:0;transition:all 0.4s;}
+.toast.show{transform:translateY(0);opacity:1;}
+.toast-title{font-weight:700;font-size:0.9rem;margin-bottom:4px;}
+.toast-msg{font-size:0.82rem;color:var(--muted);}
+
+/* ADMIN PANEL */
+.admin-overlay{display:none;position:fixed;inset:0;background:var(--bg);z-index:700;flex-direction:column;overflow:hidden;}
+.admin-overlay.active{display:flex;}
+.admin-topbar{background:var(--surface);border-bottom:2px solid #f500a0;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;}
+.admin-topbar h2{font-family:'Bebas Neue',cursive;font-size:1.6rem;letter-spacing:3px;color:#f500a0;}
+.admin-tabs{display:flex;border-bottom:1px solid var(--border);flex-shrink:0;overflow-x:auto;background:var(--surface);}
+.admin-tab{background:transparent;border:none;padding:12px 20px;color:var(--muted);cursor:pointer;font-size:0.85rem;font-family:'DM Sans',sans-serif;border-bottom:3px solid transparent;white-space:nowrap;transition:all 0.2s;}
+.admin-tab.active{color:#f500a0;border-bottom-color:#f500a0;}
+.admin-body{flex:1;overflow-y:auto;padding:20px;}
+.admin-sec{display:none;}
+.admin-sec.active{display:block;}
+.admin-stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:20px;}
+.admin-stat{background:var(--card);border:1px solid var(--border);padding:16px;text-align:center;}
+.admin-stat .num{font-family:'Bebas Neue',cursive;font-size:2rem;color:#f500a0;}
+.admin-stat .lbl{font-size:0.72rem;color:var(--muted);font-family:'Space Mono',monospace;text-transform:uppercase;}
+.admin-table-wrap{overflow-x:auto;}
+.admin-table{width:100%;border-collapse:collapse;}
+.admin-table th{padding:10px 12px;text-align:left;font-size:0.7rem;letter-spacing:2px;color:var(--muted);font-family:'Space Mono',monospace;text-transform:uppercase;border-bottom:1px solid var(--border);background:var(--card);white-space:nowrap;}
+.admin-table td{padding:12px;border-bottom:1px solid rgba(42,42,62,0.4);font-size:0.83rem;vertical-align:middle;}
+.admin-table tr:hover td{background:rgba(245,0,160,0.03);}
+.btn-complete{background:rgba(0,245,160,0.1);border:1px solid var(--accent);color:var(--accent);padding:5px 12px;font-size:0.75rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
+.btn-complete:hover{background:var(--accent);color:var(--bg);}
+.btn-cancel-order{background:rgba(245,0,160,0.1);border:1px solid #f500a0;color:#f500a0;padding:5px 12px;font-size:0.75rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.admin-search{background:var(--bg);border:1px solid var(--border);padding:9px 14px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:0.88rem;outline:none;width:100%;margin-bottom:14px;}
+.admin-search:focus{border-color:#f500a0;}
+.copy-link{background:transparent;border:1px solid var(--border);color:var(--accent2);padding:4px 10px;font-size:0.72rem;cursor:pointer;font-family:'Space Mono',monospace;}
+.copy-link:hover{border-color:var(--accent2);}
+
+/* ADMIN SUPPORT FLOAT */
+.support-float{position:fixed;bottom:24px;right:24px;z-index:300;}
+.support-btn{width:54px;height:54px;background:var(--accent);border:none;border-radius:50%;cursor:pointer;font-size:1.3rem;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,245,160,0.3);transition:all 0.2s;position:relative;}
+.support-btn:hover{transform:scale(1.1);}
+.support-notif{position:absolute;top:-3px;right:-3px;width:16px;height:16px;background:var(--accent3);border-radius:50%;font-size:0.65rem;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;}
+
+/* FOOTER */
+footer{background:var(--surface);border-top:1px solid var(--border);padding:60px 24px 30px;}
+.footer-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px;}
+.footer-brand p{color:var(--muted);font-size:0.88rem;line-height:1.7;margin-top:12px;}
+.footer-col h4{font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:16px;}
+.footer-col ul{list-style:none;}
+.footer-col li{margin-bottom:10px;}
+.footer-col a{color:var(--muted);text-decoration:none;font-size:0.88rem;transition:color 0.2s;}
+.footer-col a:hover{color:var(--accent);}
+.footer-bottom{max-width:1200px;margin:0 auto;border-top:1px solid var(--border);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.footer-bottom p{font-size:0.82rem;color:var(--muted);}
+@media(max-width:768px){.footer-grid{grid-template-columns:1fr 1fr;}.hero h1{font-size:3.5rem;}.dash-sidebar{width:200px;}.fund-methods{grid-template-columns:1fr 1fr;}.ref-stats{grid-template-columns:1fr 1fr;}}
+@media(max-width:480px){.footer-grid{grid-template-columns:1fr;}.dash-sidebar{display:none;}.pay-options{grid-template-columns:1fr 1fr;}.country-grid{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<nav class="topbar">
+  <div class="logo" onclick="scrollToTop()">SOCIAL<span>BOOM</span></div>
+  <div class="topbar-right">
+    <div id="authBtns">
+      <button class="btn-login" onclick="openAuth('login')">LOGIN</button>
+      <button class="btn-register" onclick="openAuth('register')">REGISTER</button>
+    </div>
+    <div class="user-bar" id="userBar">
+      <span class="uname" id="topbarName"></span>
+      <span class="ubal" id="topbarBal">₦0</span>
+      <button class="btn-dashboard" onclick="openDash('overview')">DASHBOARD</button>
+      <button id="adminBtn" style="display:none;background:#f500a0;color:#fff;padding:7px 14px;font-size:0.82rem;font-weight:700;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;" onclick="openAdmin()">⚙️ ADMIN</button>
+      <button class="btn-logout" onclick="logoutUser()">LOGOUT</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ANNOUNCE -->
+<div class="announce">
+  ⚠️ <strong>IMPORTANT:</strong> Always set your social media account to <strong>PUBLIC</strong> before placing any order. Wrong links = cancelled orders with no refund.
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div style="position:relative;z-index:1;">
+    <div class="hero-badge">🇳🇬 NIGERIA'S #1 SMM SUPPLIER PANEL</div>
+    <h1>
+      <span class="l1">GROW YOUR</span>
+      <span class="l2">SOCIAL MEDIA</span>
+      <span class="l3">INSTANTLY</span>
+    </h1>
+    <p class="hero-sub">Nigeria's most trusted SMM supplier. Real followers, likes, views & engagement for all platforms. Nigerian, African & Worldwide targeting available.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="openAuth('register')">→ START FOR FREE</button>
+      <button class="btn-outline" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">VIEW SERVICES</button>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><div class="num">5M+</div><div class="lbl">Orders Delivered</div></div>
+      <div class="hstat"><div class="num">50K+</div><div class="lbl">Active Users</div></div>
+      <div class="hstat"><div class="num">99%</div><div class="lbl">Satisfaction</div></div>
+      <div class="hstat"><div class="num">24/7</div><div class="lbl">Support</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div class="sec-label">// ALL SERVICES</div>
+  <div class="sec-title">CHOOSE YOUR PLATFORM</div>
+  <div class="sec-sub">100+ services across all major platforms. Nigerian, African & Worldwide targeting.</div>
+  <div class="bar"></div>
+
+  <div class="services-wrap">
+    <div class="svc-filters" id="svcFilters">
+      <button class="svc-filter active" onclick="filterServices('all',this)">🌍 All Services</button>
+      <button class="svc-filter" onclick="filterServices('instagram',this)">📸 Instagram</button>
+      <button class="svc-filter" onclick="filterServices('tiktok',this)">🎵 TikTok</button>
+      <button class="svc-filter" onclick="filterServices('youtube',this)">▶️ YouTube</button>
+      <button class="svc-filter" onclick="filterServices('twitter',this)">🐦 Twitter/X</button>
+      <button class="svc-filter" onclick="filterServices('facebook',this)">👥 Facebook</button>
+      <button class="svc-filter" onclick="filterServices('telegram',this)">💬 Telegram</button>
+      <button class="svc-filter" onclick="filterServices('whatsapp',this)">📱 WhatsApp</button>
+      <button class="svc-filter" onclick="filterServices('linkedin',this)">💼 LinkedIn</button>
+      <button class="svc-filter" onclick="filterServices('snapchat',this)">👻 Snapchat</button>
+      <button class="svc-filter" onclick="filterServices('pinterest',this)">📌 Pinterest</button>
+      <button class="svc-filter" onclick="filterServices('spotify',this)">🎧 Spotify</button>
+      <button class="svc-filter" onclick="filterServices('threads',this)">🧵 Threads</button>
+      <button class="svc-filter" onclick="filterServices('reddit',this)">👽 Reddit</button>
+    </div>
+    <div class="svc-search">
+      <input type="text" id="svcSearch" placeholder="🔍 Search services..." oninput="searchServices(this.value)">
+    </div>
+    <div class="svc-table-wrap">
+      <table class="svc-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>SERVICE NAME</th>
+            <th>RATE / 1000</th>
+            <th>MIN ORDER</th>
+            <th>SPEED</th>
+            <th>ACTION</th>
+          </tr>
+        </thead>
+        <tbody id="svcTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- API SECTION -->
+<section class="section" id="api">
+  <div class="api-box">
+    <div class="sec-label">// RESELLER API</div>
+    <div class="sec-title">API ACCESS</div>
+    <div class="sec-sub">Connect your own panel or website to SocialBoom API. Auto-fulfillment for resellers.</div>
+    <div class="bar"></div>
+    <div class="api-grid">
+      <div class="api-info">
+        <h3>AVAILABLE ENDPOINTS</h3>
+        <p>Use our REST API to automate orders, check balances, and track order status. Full documentation available after registration.</p>
+        <div class="api-endpoint">
+          <span class="method get">GET</span>
+          <span class="eurl">https://socialboom.api/v2/services</span>
+        </div>
+        <div class="api-endpoint">
+          <span class="method post">POST</span>
+          <span class="eurl">https://socialboom.api/v2/order</span>
+        </div>
+        <div class="api-endpoint">
+          <span class="method get">GET</span>
+          <span class="eurl">https://socialboom.api/v2/status?id={orderid}</span>
+        </div>
+        <div class="api-endpoint">
+          <span class="method get">GET</span>
+          <span class="eurl">https://socialboom.api/v2/balance</span>
+        </div>
+        <div class="api-key-row" id="apiKeyRow" style="display:none;">
+          <span class="api-key-val" id="apiKeyDisplay">••••••••••••••••••••</span>
+          <button class="btn-copy" onclick="copyApiKey()">COPY</button>
+        </div>
+        <div style="margin-top:12px;" id="apiLoginPrompt">
+          <button class="btn-primary" onclick="openAuth('register')" style="clip-path:none;padding:10px 24px;">GET YOUR API KEY →</button>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-family:'Bebas Neue',cursive;font-size:1.6rem;letter-spacing:2px;margin-bottom:12px;">EXAMPLE REQUEST</h3>
+        <div class="api-code">
+<span class="k">POST</span> /v2/order HTTP/1.1<br>
+<span class="k">Content-Type:</span> <span class="s">application/json</span><br><br>
+{<br>
+&nbsp;&nbsp;<span class="k">"key"</span>: <span class="s">"YOUR_API_KEY"</span>,<br>
+&nbsp;&nbsp;<span class="k">"action"</span>: <span class="s">"add"</span>,<br>
+&nbsp;&nbsp;<span class="k">"service"</span>: <span class="v">101</span>,<br>
+&nbsp;&nbsp;<span class="k">"link"</span>: <span class="s">"https://instagram.com/user"</span>,<br>
+&nbsp;&nbsp;<span class="k">"quantity"</span>: <span class="v">1000</span>,<br>
+&nbsp;&nbsp;<span class="k">"country"</span>: <span class="s">"Nigeria"</span><br>
+}<br><br>
+<span class="k">Response:</span><br>
+{<br>
+&nbsp;&nbsp;<span class="k">"order"</span>: <span class="v">12345</span>,<br>
+&nbsp;&nbsp;<span class="k">"status"</span>: <span class="s">"pending"</span>,<br>
+&nbsp;&nbsp;<span class="k">"charge"</span>: <span class="v">250.00</span><br>
+}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section" id="pricing">
+  <div class="sec-label">// PLANS</div>
+  <div class="sec-title">CHOOSE YOUR PLAN</div>
+  <div class="sec-sub">Transparent pricing. No hidden fees. Top up your wallet and start ordering instantly.</div>
+  <div class="bar"></div>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="pname">STARTER</div>
+      <div class="pamount"><span class="curr">₦</span>2,800</div>
+      <div class="pperiod">per 1,000 followers</div>
+      <ul class="pfeatures">
+        <li class="hi">1,000 Followers</li>
+        <li>Nigerian or Worldwide targeting</li>
+        <li>99 Day Refill guarantee</li>
+        <li>Order tracking dashboard</li>
+        <li>Email support</li>
+      </ul>
+      <button class="btn-plan" onclick="openOrderModal(2800,'1,000 Followers — ₦2,800')">ORDER NOW</button>
+    </div>
+    <div class="price-card pop">
+      <div class="pop-badge">🔥 BEST VALUE</div>
+      <div class="pname">GROWTH</div>
+      <div class="pamount"><span class="curr">₦</span>14,000</div>
+      <div class="pperiod">per 5,000 followers</div>
+      <ul class="pfeatures">
+        <li class="hi">5,000 Followers</li>
+        <li class="hi">Any platform</li>
+        <li>Nigerian + African targeting</li>
+        <li>99 Day Refill guarantee</li>
+        <li>Full dashboard analytics</li>
+        <li>24/7 WhatsApp support</li>
+        <li class="hi">Referral bonus ₦500/friend</li>
+      </ul>
+      <button class="btn-plan" onclick="openOrderModal(14000,'5,000 Followers — ₦14,000')">ORDER NOW</button>
+    </div>
+    <div class="price-card">
+      <div class="pname">BULK</div>
+      <div class="pamount"><span class="curr">₦</span>28,000</div>
+      <div class="pperiod">per 10,000 followers</div>
+      <ul class="pfeatures">
+        <li class="hi">10,000 Followers</li>
+        <li class="hi">All platforms supported</li>
+        <li>API access included</li>
+        <li>99 Day Refill guarantee</li>
+        <li>Dedicated support</li>
+        <li class="hi">Reseller panel access</li>
+      </ul>
+      <button class="btn-plan" onclick="openOrderModal(28000,'10,000 Followers — ₦28,000')">ORDER NOW</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo">SOCIAL<span style="color:var(--text)">BOOM</span></div>
+      <p>Nigeria's #1 SMM supplier panel. Real growth for Instagram, TikTok, YouTube, Twitter and 10+ more platforms. Nigerian, African & Worldwide targeting.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Platforms</h4>
+      <ul>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">TikTok</a></li>
+        <li><a href="#">YouTube</a></li>
+        <li><a href="#">Twitter/X</a></li>
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">Telegram</a></li>
+        <li><a href="#">WhatsApp</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">API Docs</a></li>
+        <li><a href="#">Reseller Program</a></li>
+        <li><a href="#" onclick="openDash('support')">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Refund Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 SocialBoom. All rights reserved. Nigeria's #1 SMM Panel.</p>
+    <p>🔒 Secured by Monnify & Paystack · SSL Encrypted</p>
+  </div>
+</footer>
+
+<!-- AUTH MODAL -->
+<div class="modal-overlay" id="authModal" onclick="closeOnOverlay(event,'authModal')">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('authModal')">×</button>
+    <div class="modal-tabs">
+      <button class="tab-btn active" id="loginTab" onclick="switchTab('login')">LOGIN</button>
+      <button class="tab-btn" id="registerTab" onclick="switchTab('register')">REGISTER</button>
+    </div>
+    <div class="tab-content active" id="loginContent">
+      <div class="form-row"><label>Email Address</label><input type="email" id="loginEmail" placeholder="you@email.com"></div>
+      <div class="form-row"><label>Password</label><input type="password" id="loginPass" placeholder="Your password"></div>
+      <button class="btn-submit" onclick="loginUser()">→ LOGIN TO DASHBOARD</button>
+      <p class="modal-sub">No account? <a onclick="switchTab('register')">Register here</a></p>
+    </div>
+    <div class="tab-content" id="registerContent">
+      <div class="form-row"><label>Full Name</label><input type="text" id="regName" placeholder="Your full name"></div>
+      <div class="form-row"><label>Email Address</label><input type="email" id="regEmail" placeholder="you@email.com"></div>
+      <div class="form-row"><label>Phone Number</label><input type="tel" id="regPhone" placeholder="+234 800 000 0000"></div>
+      <div class="form-row"><label>Password</label><input type="password" id="regPass" placeholder="Create a password"></div>
+      <div class="form-row"><label>Referral Code (optional)</label><input type="text" id="regRef" placeholder="e.g. SB12345678"></div>
+      <button class="btn-submit" onclick="registerUser()">→ CREATE MY ACCOUNT</button>
+      <p class="modal-sub">Have account? <a onclick="switchTab('login')">Login here</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- ORDER MODAL -->
+<div class="modal-overlay" id="orderModal" onclick="closeOnOverlay(event,'orderModal')">
+  <div class="modal order-modal">
+    <button class="modal-close" onclick="closeModal('orderModal')">×</button>
+    <h3 id="orderTitle" style="font-family:'Bebas Neue',cursive;font-size:1.8rem;letter-spacing:2px;margin-bottom:6px;">PLACE ORDER</h3>
+    <p id="orderDesc" style="color:var(--muted);font-size:0.85rem;margin-bottom:20px;"></p>
+
+    <div class="form-row">
+      <label>Platform</label>
+      <select id="orderPlatform">
+        <option value="Instagram">📸 Instagram</option>
+        <option value="TikTok">🎵 TikTok</option>
+        <option value="YouTube">▶️ YouTube</option>
+        <option value="Twitter/X">🐦 Twitter/X</option>
+        <option value="Facebook">👥 Facebook</option>
+        <option value="Telegram">💬 Telegram</option>
+        <option value="WhatsApp">📱 WhatsApp</option>
+        <option value="LinkedIn">💼 LinkedIn</option>
+        <option value="Snapchat">👻 Snapchat</option>
+        <option value="Pinterest">📌 Pinterest</option>
+        <option value="Spotify">🎧 Spotify</option>
+        <option value="Threads">🧵 Threads</option>
+        <option value="Reddit">👽 Reddit</option>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <label>Service Type</label>
+      <select id="orderService">
+        <option>Followers</option>
+        <option>Likes</option>
+        <option>Views</option>
+        <option>Comments</option>
+        <option>Subscribers</option>
+        <option>Story Views</option>
+        <option>Reels Views</option>
+        <option>Shares</option>
+        <option>Members</option>
+        <option>Watch Time</option>
+        <option>Streams</option>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <label>🌍 Target Country</label>
+      <select id="orderCountry">
+        <optgroup label="🇳🇬 Nigeria — Top Choice">
+          <option value="Nigeria" selected>🇳🇬 Nigeria (Recommended)</option>
+          <option value="Nigeria Real">🇳🇬 Nigeria — Real Active Users</option>
+          <option value="Nigeria Premium">🇳🇬 Nigeria — Premium Quality</option>
+        </optgroup>
+        <optgroup label="🌍 West Africa">
+          <option value="Ghana">🇬🇭 Ghana</option>
+          <option value="Senegal">🇸🇳 Senegal</option>
+          <option value="Ivory Coast">🇨🇮 Ivory Coast</option>
+          <option value="Cameroon">🇨🇲 Cameroon</option>
+          <option value="Benin">🇧🇯 Benin</option>
+          <option value="Togo">🇹🇬 Togo</option>
+          <option value="Niger">🇳🇪 Niger</option>
+          <option value="Mali">🇲🇱 Mali</option>
+          <option value="Guinea">🇬🇳 Guinea</option>
+          <option value="Sierra Leone">🇸🇱 Sierra Leone</option>
+          <option value="Liberia">🇱🇷 Liberia</option>
+          <option value="Gambia">🇬🇲 Gambia</option>
+        </optgroup>
+        <optgroup label="🌍 East Africa">
+          <option value="Kenya">🇰🇪 Kenya</option>
+          <option value="Tanzania">🇹🇿 Tanzania</option>
+          <option value="Uganda">🇺🇬 Uganda</option>
+          <option value="Ethiopia">🇪🇹 Ethiopia</option>
+          <option value="Rwanda">🇷🇼 Rwanda</option>
+          <option value="Somalia">🇸🇴 Somalia</option>
+          <option value="Mozambique">🇲🇿 Mozambique</option>
+          <option value="Madagascar">🇲🇬 Madagascar</option>
+        </optgroup>
+        <optgroup label="🌍 North Africa">
+          <option value="Egypt">🇪🇬 Egypt</option>
+          <option value="Morocco">🇲🇦 Morocco</option>
+          <option value="Algeria">🇩🇿 Algeria</option>
+          <option value="Tunisia">🇹🇳 Tunisia</option>
+          <option value="Libya">🇱🇾 Libya</option>
+          <option value="Sudan">🇸🇩 Sudan</option>
+        </optgroup>
+        <optgroup label="🌍 Southern Africa">
+          <option value="South Africa">🇿🇦 South Africa</option>
+          <option value="Zimbabwe">🇿🇼 Zimbabwe</option>
+          <option value="Zambia">🇿🇲 Zambia</option>
+          <option value="Angola">🇦🇴 Angola</option>
+          <option value="Botswana">🇧🇼 Botswana</option>
+          <option value="Namibia">🇳🇦 Namibia</option>
+        </optgroup>
+        <optgroup label="🌍 Central Africa">
+          <option value="DRC Congo">🇨🇩 DR Congo</option>
+          <option value="Congo">🇨🇬 Congo</option>
+          <option value="Gabon">🇬🇦 Gabon</option>
+          <option value="Chad">🇹🇩 Chad</option>
+        </optgroup>
+        <optgroup label="🌐 Global">
+          <option value="Worldwide">🌍 Worldwide (Mixed)</option>
+          <option value="USA">🇺🇸 United States</option>
+          <option value="UK">🇬🇧 United Kingdom</option>
+          <option value="Canada">🇨🇦 Canada</option>
+          <option value="Australia">🇦🇺 Australia</option>
+          <option value="France">🇫🇷 France</option>
+          <option value="Germany">🇩🇪 Germany</option>
+          <option value="Brazil">🇧🇷 Brazil</option>
+          <option value="India">🇮🇳 India</option>
+          <option value="Indonesia">🇮🇩 Indonesia</option>
+          <option value="UAE">🇦🇪 UAE</option>
+          <option value="Saudi Arabia">🇸🇦 Saudi Arabia</option>
+        </optgroup>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <label>Username / Profile URL</label>
+      <input type="text" id="orderLink" placeholder="@username or full profile URL (no password needed)">
+    </div>
+
+    <div class="form-row">
+      <label>How Many Do You Want?</label>
+      <input type="number" id="orderQuantity" placeholder="e.g. 1000" min="100" oninput="calcOrderPrice()">
+      <div style="font-size:0.75rem;color:var(--muted);margin-top:5px;">Minimum: 100 · Maximum: 100,000</div>
+    </div>
+
+    <div style="background:rgba(0,245,160,0.06);border:1px solid rgba(0,245,160,0.2);padding:16px;margin-bottom:16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <span style="font-size:0.8rem;color:var(--muted);">Quantity:</span>
+        <span style="font-family:'Space Mono',monospace;font-size:0.88rem;" id="summaryQty">—</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <span style="font-size:0.8rem;color:var(--muted);">Rate per 1,000:</span>
+        <span style="font-family:'Space Mono',monospace;font-size:0.88rem;color:var(--accent2);" id="summaryRate">—</span>
+      </div>
+      <div style="border-top:1px solid rgba(0,245,160,0.15);padding-top:10px;display:flex;justify-content:space-between;align-items:center;">
+        <span style="font-weight:700;">Total Price:</span>
+        <span style="font-family:'Bebas Neue',cursive;font-size:1.6rem;color:var(--accent);letter-spacing:2px;" id="summaryTotal">₦0</span>
+      </div>
+    </div>
+
+    <div class="form-row"><label>Your Email</label><input type="email" id="orderEmail" placeholder="you@email.com"></div>
+    <div class="form-row"><label>Your Full Name</label><input type="text" id="orderName" placeholder="Your full name"></div>
+
+    <label style="font-size:0.7rem;letter-spacing:2px;color:var(--muted);font-family:'Space Mono',monospace;text-transform:uppercase;display:block;margin-bottom:10px;">PAYMENT METHOD</label>
+    <div class="pay-options">
+      <div class="pay-opt selected" id="monnifyPay" onclick="selectPay('monnify')">
+        <div class="pico">🏦</div>
+        <div class="pname">Monnify</div>
+        <div class="psub">Card · Transfer · USSD</div>
+      </div>
+      <div class="pay-opt ps" id="paystackPay" onclick="selectPay('paystack')">
+        <div class="pico">💳</div>
+        <div class="pname">Paystack</div>
+        <div class="psub">Card · Transfer · USSD</div>
+      </div>
+    </div>
+
+    <div class="pay-info">🔒 100% Secure Payment — Powered by <strong style="color:var(--accent)">Monnify</strong> & <strong style="color:var(--accent2)">Paystack</strong>. Pay via Card, Bank Transfer or USSD. Your info is never stored.</div>
+
+    <button class="btn-submit" id="payBtn" onclick="processPayment()">🔒 PAY WITH MONNIFY NOW</button>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dash-overlay" id="dashOverlay">
+  <div class="dash-sidebar">
+    <div class="dash-logo-bar">SOCIAL<span style="color:var(--text)">BOOM</span></div>
+    <div class="dash-user-info">
+      <div class="dun" id="dashUserName">Loading...</div>
+      <div class="due" id="dashUserEmail"></div>
+      <div class="dbal">
+        <span class="dbal-l">WALLET</span>
+        <span class="dbal-a" id="dashWalBal">₦0</span>
+      </div>
+    </div>
+    <div class="dash-nav">
+      <div class="dnav-sep">MAIN MENU</div>
+      <div class="dnav-item active" onclick="showDashSec('overview')"><span class="icon">📊</span> Overview</div>
+      <div class="dnav-item" onclick="showDashSec('neworder')"><span class="icon">➕</span> New Order</div>
+      <div class="dnav-item" onclick="showDashSec('orders')"><span class="icon">📦</span> My Orders</div>
+      <div class="dnav-sep">FINANCE</div>
+      <div class="dnav-item" onclick="showDashSec('wallet')"><span class="icon">💰</span> Wallet</div>
+      <div class="dnav-item" onclick="showDashSec('refer')"><span class="icon">🎁</span> Refer & Earn</div>
+      <div class="dnav-sep">ACCOUNT</div>
+      <div class="dnav-item" onclick="showDashSec('api')"><span class="icon">⚡</span> API Access</div>
+      <div class="dnav-item" onclick="showDashSec('support')"><span class="icon">🎫</span> Support</div>
+    </div>
+    <div class="dash-close-btn" onclick="closeDash()">✕ Close Dashboard</div>
+  </div>
+  <div class="dash-main">
+    <div class="dash-topbar">
+      <h2 id="dashSecTitle">OVERVIEW</h2>
+      <span style="font-size:0.8rem;color:var(--muted);font-family:'Space Mono',monospace;" id="dashDate"></span>
+    </div>
+    <div class="dash-body">
+
+      <!-- OVERVIEW -->
+      <div class="dash-sec active" id="sec-overview">
+        <div class="dstats" id="dashStats">
+          <div class="dstat"><div class="dstat-icon">📦</div><div class="dstat-num" id="dTotalOrders">0</div><div class="dstat-label">Total Orders</div></div>
+          <div class="dstat"><div class="dstat-icon">⚡</div><div class="dstat-num" id="dActiveOrders">0</div><div class="dstat-label">Active Orders</div></div>
+          <div class="dstat"><div class="dstat-icon">💰</div><div class="dstat-num" id="dWalletBal">₦0</div><div class="dstat-label">Wallet Balance</div></div>
+          <div class="dstat"><div class="dstat-icon">🎁</div><div class="dstat-num" id="dReferrals">0</div><div class="dstat-label">Referrals</div></div>
+        </div>
+        <div style="background:var(--card);border:1px solid var(--border);padding:20px;margin-bottom:16px;">
+          <div style="font-weight:600;margin-bottom:8px;">📌 Quick Tip</div>
+          <div style="color:var(--muted);font-size:0.88rem;line-height:1.7;">Always make sure your social media profile is set to <strong style="color:var(--accent)">PUBLIC</strong> before placing an order. Orders to private accounts cannot be fulfilled.</div>
+        </div>
+        <button class="btn-primary" onclick="showDashSec('neworder')" style="clip-path:none;padding:12px 28px;">➕ PLACE NEW ORDER</button>
+      </div>
+
+      <!-- NEW ORDER -->
+      <div class="dash-sec" id="sec-neworder">
+        <div class="new-order-form">
+          <div style="margin-bottom:20px;font-size:0.88rem;color:var(--muted);">Fill in the details below to place a new order from your wallet balance.</div>
+          <div class="form-row">
+            <label>Platform</label>
+            <select id="dOrderPlatform">
+              <option>📸 Instagram</option><option>🎵 TikTok</option><option>▶️ YouTube</option>
+              <option>🐦 Twitter/X</option><option>👥 Facebook</option><option>💬 Telegram</option>
+              <option>📱 WhatsApp</option><option>💼 LinkedIn</option><option>👻 Snapchat</option>
+              <option>📌 Pinterest</option><option>🎧 Spotify</option><option>🧵 Threads</option><option>👽 Reddit</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label>Service</label>
+            <select id="dOrderService">
+              <option>Followers</option><option>Likes</option><option>Views</option><option>Comments</option>
+              <option>Subscribers</option><option>Story Views</option><option>Reels Views</option>
+              <option>Shares</option><option>Members</option><option>Watch Time</option><option>Streams</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label>🌍 Target Country</label>
+            <select id="dOrderCountry">
+              <optgroup label="🇳🇬 Nigeria">
+                <option value="Nigeria" selected>🇳🇬 Nigeria (Recommended)</option>
+                <option>🇳🇬 Nigeria — Real Active Users</option>
+                <option>🇳🇬 Nigeria — Premium Quality</option>
+              </optgroup>
+              <optgroup label="🌍 West Africa">
+                <option>🇬🇭 Ghana</option><option>🇸🇳 Senegal</option><option>🇨🇮 Ivory Coast</option>
+                <option>🇨🇲 Cameroon</option><option>🇧🇯 Benin</option><option>🇹🇬 Togo</option>
+                <option>🇳🇪 Niger</option><option>🇲🇱 Mali</option><option>🇬🇳 Guinea</option>
+              </optgroup>
+              <optgroup label="🌍 East Africa">
+                <option>🇰🇪 Kenya</option><option>🇹🇿 Tanzania</option><option>🇺🇬 Uganda</option>
+                <option>🇪🇹 Ethiopia</option><option>🇷🇼 Rwanda</option>
+              </optgroup>
+              <optgroup label="🌍 North Africa">
+                <option>🇪🇬 Egypt</option><option>🇲🇦 Morocco</option><option>🇩🇿 Algeria</option>
+              </optgroup>
+              <optgroup label="🌍 Southern Africa">
+                <option>🇿🇦 South Africa</option><option>🇿🇼 Zimbabwe</option><option>🇿🇲 Zambia</option>
+                <option>🇦🇴 Angola</option>
+              </optgroup>
+              <optgroup label="🌐 Global">
+                <option>🌍 Worldwide</option><option>🇺🇸 United States</option><option>🇬🇧 United Kingdom</option>
+                <option>🇨🇦 Canada</option><option>🇧🇷 Brazil</option><option>🇮🇳 India</option>
+                <option>🇦🇪 UAE</option><option>🇸🇦 Saudi Arabia</option>
+              </optgroup>
+            </select>
+          </div>
+          <div class="form-row">
+            <label>Username / Profile URL</label>
+            <input type="text" id="dOrderLink" placeholder="@username or full URL (no password needed)">
+          </div>
+          <div class="form-row">
+            <label>How Many Do You Want?</label>
+            <input type="number" id="dOrderQuantity" placeholder="e.g. 1000" min="100" oninput="calcDashPrice()">
+            <div style="font-size:0.75rem;color:var(--muted);margin-top:5px;">Min: 100 · Max: 100,000</div>
+          </div>
+          <div style="background:rgba(0,245,160,0.06);border:1px solid rgba(0,245,160,0.2);padding:14px;margin-bottom:16px;">
+            <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+              <span style="font-size:0.8rem;color:var(--muted);">Quantity:</span>
+              <span style="font-family:'Space Mono',monospace;font-size:0.85rem;" id="dSummaryQty">—</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;border-top:1px solid rgba(0,245,160,0.15);padding-top:8px;margin-top:4px;">
+              <span style="font-weight:700;">Total:</span>
+              <span style="font-family:'Bebas Neue',cursive;font-size:1.4rem;color:var(--accent);" id="dSummaryTotal">₦0</span>
+            </div>
+          </div>
+          <button class="btn-submit" onclick="placeOrderFromWallet()">➕ PLACE ORDER FROM WALLET</button>
+          <p style="font-size:0.78rem;color:var(--muted);margin-top:10px;">Your wallet balance will be deducted. Make sure your account is PUBLIC!</p>
+        </div>
+      </div>
+
+      <!-- ORDERS -->
+      <div class="dash-sec" id="sec-orders">
+        <div style="margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;">
+          <span style="color:var(--muted);font-size:0.88rem;">All your orders appear here after payment.</span>
+          <button class="btn-primary" onclick="showDashSec('neworder')" style="clip-path:none;padding:9px 20px;font-size:0.82rem;">➕ NEW ORDER</button>
+        </div>
+        <div class="orders-table-wrap">
+          <table class="orders-table">
+            <thead>
+              <tr>
+                <th>ORDER ID</th><th>PLATFORM</th><th>SERVICE</th><th>COUNTRY</th>
+                <th>QUANTITY</th><th>AMOUNT</th><th>STATUS</th><th>DATE</th>
+              </tr>
+            </thead>
+            <tbody id="ordersTableBody">
+              <tr><td colspan="8" style="text-align:center;color:var(--muted);padding:32px;">No orders yet. Place your first order! 🚀</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- WALLET -->
+      <div class="dash-sec" id="sec-wallet">
+        <div class="wallet-card">
+          <div class="wbal-label">AVAILABLE BALANCE</div>
+          <div class="wbal-amount" id="walletAmount">₦0.00</div>
+          <div class="wbal-sub">SocialBoom Wallet · NGN</div>
+        </div>
+        <div style="background:var(--card);border:1px solid var(--border);padding:24px;">
+          <div style="font-weight:700;font-size:1rem;margin-bottom:16px;">ADD FUNDS</div>
+          <div class="fund-methods">
+            <div class="fund-method selected" id="fmonnify" onclick="selectFundMethod('monnify')">
+              <div class="ficon">🏦</div><div class="fname">Monnify</div><div class="fsub">Card, Transfer, USSD</div>
+            </div>
+            <div class="fund-method" id="fpaystack" onclick="selectFundMethod('paystack')">
+              <div class="ficon">💳</div><div class="fname">Paystack</div><div class="fsub">Card, Transfer, USSD</div>
+            </div>
+            <div class="fund-method" id="fbank" onclick="selectFundMethod('bank')">
+              <div class="ficon">💸</div><div class="fname">Bank Transfer</div><div class="fsub">Direct to Wema Bank</div>
+            </div>
+          </div>
+          <div class="fund-amount-box">
+            <input type="number" id="fundAmount" placeholder="Enter amount (min ₦500)" min="500">
+            <button class="btn-fund" onclick="addFunds()">💰 ADD FUNDS</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- REFER -->
+      <div class="dash-sec" id="sec-refer">
+        <div class="refer-card">
+          <div style="font-family:'Bebas Neue',cursive;font-size:1.8rem;letter-spacing:2px;color:var(--accent);margin-bottom:6px;">REFER & EARN ₦500</div>
+          <div style="color:var(--muted);font-size:0.88rem;margin-bottom:16px;">Share your unique referral link. Earn ₦500 for every friend who signs up and makes a purchase!</div>
+          <div class="ref-link-box">
+            <span class="ref-link-val" id="refLinkVal">Loading...</span>
+            <button class="btn-copy" onclick="copyRefLink()">COPY</button>
+          </div>
+          <div class="ref-share-btns">
+            <button class="btn-share wa" onclick="shareRef('whatsapp')">📱 WhatsApp</button>
+            <button class="btn-share" onclick="shareRef('facebook')">👥 Facebook</button>
+            <button class="btn-share" onclick="shareRef('twitter')">🐦 Twitter</button>
+          </div>
+          <div class="ref-stats">
+            <div class="rstat"><div class="rnum" id="refCount">0</div><div class="rlbl">Total Referrals</div></div>
+            <div class="rstat"><div class="rnum" id="refEarned">₦0</div><div class="rlbl">Total Earned</div></div>
+            <div class="rstat"><div class="rnum" id="refPending">₦0</div><div class="rlbl">Pending Payout</div></div>
+          </div>
+        </div>
+        <div style="background:var(--card);border:1px solid var(--border);padding:20px;">
+          <div style="font-weight:700;margin-bottom:12px;">HOW IT WORKS</div>
+          <div style="color:var(--muted);font-size:0.88rem;line-height:2;">
+            1️⃣ Copy your unique referral link above<br>
+            2️⃣ Share with friends, family or your followers<br>
+            3️⃣ When they register and make their first purchase<br>
+            4️⃣ <strong style="color:var(--accent)">₦500 credited to your wallet instantly!</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- API -->
+      <div class="dash-sec" id="sec-api">
+        <div style="background:var(--card);border:1px solid var(--border);padding:24px;margin-bottom:16px;">
+          <div style="font-family:'Bebas Neue',cursive;font-size:1.6rem;letter-spacing:2px;margin-bottom:8px;">YOUR API KEY</div>
+          <div style="color:var(--muted);font-size:0.88rem;margin-bottom:16px;">Use this key to connect your own website or app to SocialBoom. Keep it secret!</div>
+          <div class="api-key-row">
+            <span class="api-key-val" id="dashApiKey">••••••••••••••••••••</span>
+            <button class="btn-copy" onclick="toggleApiKey()">SHOW</button>
+            <button class="btn-copy" onclick="copyDashApiKey()">COPY</button>
+          </div>
+        </div>
+        <div style="background:var(--card);border:1px solid var(--border);padding:24px;">
+          <div style="font-weight:700;margin-bottom:12px;">API ENDPOINTS</div>
+          <div class="api-endpoint"><span class="method get">GET</span><span class="eurl">?action=services&key=YOUR_KEY</span></div>
+          <div class="api-endpoint"><span class="method post">POST</span><span class="eurl">?action=add&key=YOUR_KEY&service=ID&link=URL&quantity=N</span></div>
+          <div class="api-endpoint"><span class="method get">GET</span><span class="eurl">?action=status&key=YOUR_KEY&order=ORDER_ID</span></div>
+          <div class="api-endpoint"><span class="method get">GET</span><span class="eurl">?action=balance&key=YOUR_KEY</span></div>
+        </div>
+      </div>
+
+      <!-- SUPPORT -->
+      <div class="dash-sec" id="sec-support">
+        <div class="ticket-form">
+          <div style="font-weight:700;margin-bottom:16px;">CREATE NEW TICKET</div>
+          <div class="form-row">
+            <label>Subject</label>
+            <select id="ticketSubject">
+              <option>Order not delivered</option><option>Payment issue</option>
+              <option>Wrong order delivered</option><option>Refund request</option>
+              <option>Account issue</option><option>API support</option><option>Other</option>
+            </select>
+          </div>
+          <div class="form-row"><label>Order ID (if applicable)</label><input type="text" id="ticketOrderId" placeholder="e.g. SB_123456"></div>
+          <div class="form-row"><label>Message</label><textarea id="ticketMsg" rows="4" placeholder="Describe your issue in detail..."></textarea></div>
+          <button class="btn-submit" onclick="submitTicket()" style="margin-top:0;">🎫 SUBMIT TICKET</button>
+        </div>
+        <div id="ticketsList" style="margin-top:20px;"></div>
+        <div style="background:var(--card);border:1px solid var(--border);padding:20px;margin-top:16px;">
+          <div style="font-weight:700;margin-bottom:12px;">⚡ Quick Help</div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <a href="https://wa.me/2349035665428" target="_blank" style="background:rgba(37,211,102,0.1);border:1px solid rgba(37,211,102,0.3);color:#25d366;padding:10px 18px;text-decoration:none;font-weight:600;font-size:0.85rem;">📱 WhatsApp Support</a>
+            <a href="/cdn-cgi/l/email-protection#6b0a181e1a1e040e1b03190a0206535e2b0c060a020745080406" style="background:rgba(0,217,245,0.1);border:1px solid rgba(0,217,245,0.3);color:var(--accent2);padding:10px 18px;text-decoration:none;font-weight:600;font-size:0.85rem;">📧 Email Support</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- SUPPORT FLOAT -->
+<div class="support-float" id="supportFloat">
+  <button class="support-btn" onclick="openDash('support')">💬<span class="support-notif">1</span></button>
+</div>
+
+<!-- ADMIN PANEL -->
+<div class="admin-overlay" id="adminOverlay">
+  <div class="admin-topbar">
+    <h2>⚙️ ADMIN PANEL</h2>
+    <div style="display:flex;gap:10px;align-items:center;">
+      <span style="font-size:0.8rem;color:var(--muted);font-family:'Space Mono',monospace;" id="adminDate"></span>
+      <button onclick="closeAdmin()" style="background:transparent;border:1px solid var(--border);color:var(--muted);padding:7px 14px;font-size:0.82rem;cursor:pointer;font-family:'DM Sans',sans-serif;">✕ CLOSE</button>
+    </div>
+  </div>
+  <div class="admin-tabs">
+    <button class="admin-tab active" onclick="showAdminSec('overview',this)">📊 Overview</button>
+    <button class="admin-tab" onclick="showAdminSec('orders',this)">📦 All Orders</button>
+    <button class="admin-tab" onclick="showAdminSec('pending',this)">⏳ Pending</button>
+    <button class="admin-tab" onclick="showAdminSec('users',this)">👥 Users</button>
+    <button class="admin-tab" onclick="showAdminSec('tickets',this)">🎫 Tickets</button>
+  </div>
+  <div class="admin-body">
+
+    <!-- OVERVIEW -->
+    <div class="admin-sec active" id="asec-overview">
+      <div class="admin-stats" id="adminStats">
+        <div class="admin-stat"><div class="num" id="aTotalOrders">0</div><div class="lbl">Total Orders</div></div>
+        <div class="admin-stat"><div class="num" id="aPendingOrders">0</div><div class="lbl">Pending</div></div>
+        <div class="admin-stat"><div class="num" id="aActiveOrders">0</div><div class="lbl">Active</div></div>
+        <div class="admin-stat"><div class="num" id="aTotalUsers">0</div><div class="lbl">Total Users</div></div>
+        <div class="admin-stat"><div class="num" id="aTotalRevenue">₦0</div><div class="lbl">Total Revenue</div></div>
+        <div class="admin-stat"><div class="num" id="aTotalTickets">0</div><div class="lbl">Open Tickets</div></div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);padding:20px;margin-bottom:16px;">
+        <div style="font-weight:700;margin-bottom:14px;color:var(--accent);">⏳ RECENT PENDING ORDERS — Needs Fulfillment!</div>
+        <div id="recentPendingList"></div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);padding:20px;">
+        <div style="font-weight:700;margin-bottom:12px;">📊 Revenue By Platform</div>
+        <div id="revByPlatform"></div>
+      </div>
+    </div>
+
+    <!-- ALL ORDERS -->
+    <div class="admin-sec" id="asec-orders">
+      <input class="admin-search" type="text" placeholder="🔍 Search by email, platform, link..." oninput="filterAdminOrders(this.value)">
+      <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;">
+        <button onclick="filterByStatus('all')" style="background:var(--card);border:1px solid var(--border);color:var(--text);padding:6px 14px;font-size:0.8rem;cursor:pointer;font-family:'DM Sans',sans-serif;">All</button>
+        <button onclick="filterByStatus('Pending')" style="background:rgba(245,196,0,0.1);border:1px solid var(--gold);color:var(--gold);padding:6px 14px;font-size:0.8rem;cursor:pointer;font-family:'DM Sans',sans-serif;">⏳ Pending</button>
+        <button onclick="filterByStatus('Active')" style="background:rgba(0,245,160,0.1);border:1px solid var(--accent);color:var(--accent);padding:6px 14px;font-size:0.8rem;cursor:pointer;font-family:'DM Sans',sans-serif;">⚡ Active</button>
+        <button onclick="filterByStatus('Completed')" style="background:rgba(0,217,245,0.1);border:1px solid var(--accent2);color:var(--accent2);padding:6px 14px;font-size:0.8rem;cursor:pointer;font-family:'DM Sans',sans-serif;">✅ Completed</button>
+      </div>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>ORDER ID</th><th>CUSTOMER</th><th>PLATFORM</th><th>SERVICE</th>
+              <th>LINK</th><th>QTY</th><th>AMOUNT</th><th>STATUS</th><th>DATE</th><th>ACTION</th>
+            </tr>
+          </thead>
+          <tbody id="adminOrdersBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PENDING ORDERS -->
+    <div class="admin-sec" id="asec-pending">
+      <div style="background:rgba(245,196,0,0.06);border:1px solid rgba(245,196,0,0.3);padding:14px;margin-bottom:16px;font-size:0.88rem;color:var(--gold);">
+        ⚠️ These orders need manual fulfillment! Copy the link → go to Boosters.ng → place order → mark as Completed
+      </div>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>ORDER ID</th><th>CUSTOMER EMAIL</th><th>PLATFORM</th><th>SERVICE</th>
+              <th>PROFILE LINK</th><th>QTY</th><th>AMOUNT</th><th>DATE</th><th>ACTION</th>
+            </tr>
+          </thead>
+          <tbody id="pendingOrdersBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- USERS -->
+    <div class="admin-sec" id="asec-users">
+      <input class="admin-search" type="text" placeholder="🔍 Search users by name or email..." oninput="filterAdminUsers(this.value)">
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>NAME</th><th>EMAIL</th><th>PHONE</th><th>WALLET</th><th>ORDERS</th><th>REFERRALS</th><th>JOINED</th>
+            </tr>
+          </thead>
+          <tbody id="adminUsersBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TICKETS -->
+    <div class="admin-sec" id="asec-tickets">
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead>
+            <tr><th>TICKET ID</th><th>EMAIL</th><th>SUBJECT</th><th>ORDER ID</th><th>MESSAGE</th><th>STATUS</th><th>DATE</th><th>ACTION</th></tr>
+          </thead>
+          <tbody id="adminTicketsBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <div class="toast-title" id="toastTitle">✅ Done!</div>
+  <div class="toast-msg" id="toastMsg"></div>
+</div>
+
+<!-- MONNIFY + PAYSTACK -->
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://js.paystack.co/v1/inline.js"></script>
+<script src="https://sdk.monnify.com/plugin/monnify.js"></script>
+<script>
+// ─── CONFIG ───
+const MONNIFY_API_KEY   = 'MK_LIVE_XK9KYCHYQY';
+const MONNIFY_CONTRACT  = '2076360645';
+const MONNIFY_CURRENCY  = 'NGN';
+const PAYSTACK_KEY      = 'pk_live_6b829e70468a6ad20b8878b7a7af910acbba983e';
+
+// ─── PEAKERR API CONFIG ───
+// ⚠️ PASTE YOUR PEAKERR API KEY BELOW (between the quotes)
+const PEAKERR_API_KEY = 'PASTE_YOUR_PEAKERR_API_KEY_HERE';
+const PEAKERR_API_URL = 'https://peakerr.com/api/v2';
+
+// ─── JUSTANOTHERPANEL API CONFIG ───
+// ⚠️ PASTE YOUR JUSTANOTHERPANEL API KEY BELOW (between the quotes)
+const JAP_API_KEY = 'PASTE_YOUR_JAP_API_KEY_HERE';
+const JAP_API_URL = 'https://justanotherpanel.com/api/v2';
+
+// ─── PEAKERR API FUNCTIONS ───
+async function peakerrGetServices() {
+  try {
+    const res = await fetch(`${PEAKERR_API_URL}?action=services&key=${PEAKERR_API_KEY}`);
+    const data = await res.json();
+    return data;
+  } catch(e) { console.error('Peakerr services error:', e); return []; }
+}
+
+async function peakerrPlaceOrder(serviceId, link, quantity) {
+  try {
+    const params = new URLSearchParams({
+      action: 'add',
+      key: PEAKERR_API_KEY,
+      service: serviceId,
+      link: link,
+      quantity: quantity
+    });
+    const res = await fetch(PEAKERR_API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: params.toString()
+    });
+    const data = await res.json();
+    return data;
+  } catch(e) { console.error('Peakerr order error:', e); return null; }
+}
+
+async function peakerrCheckStatus(orderId) {
+  try {
+    const res = await fetch(`${PEAKERR_API_URL}?action=status&key=${PEAKERR_API_KEY}&order=${orderId}`);
+    const data = await res.json();
+    return data;
+  } catch(e) { console.error('Peakerr status error:', e); return null; }
+}
+
+async function peakerrGetBalance() {
+  try {
+    const res = await fetch(`${PEAKERR_API_URL}?action=balance&key=${PEAKERR_API_KEY}`);
+    const data = await res.json();
+    return data;
+  } catch(e) { console.error('Peakerr balance error:', e); return null; }
+}
+
+// ─── JUSTANOTHERPANEL API FUNCTIONS ───
+async function japPlaceOrder(serviceId, link, quantity) {
+  try {
+    const params = new URLSearchParams({ action:'add', key:JAP_API_KEY, service:serviceId, link:link, quantity:quantity });
+    const res = await fetch(JAP_API_URL, { method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body:params.toString() });
+    const data = await res.json();
+    return data;
+  } catch(e) { console.error('JAP order error:', e); return null; }
+}
+
+// ─── SMART DUAL SUPPLIER ROUTING ───
+// Peakerr = primary, JustAnotherPanel = backup
+async function autoDeliverOrder(orderData) {
+  const serviceId = 1;
+
+  // Try Peakerr first
+  if (PEAKERR_API_KEY && PEAKERR_API_KEY !== 'PASTE_YOUR_PEAKERR_API_KEY_HERE') {
+    try {
+      const result = await peakerrPlaceOrder(serviceId, orderData.link, orderData.quantity);
+      if (result && result.order) {
+        console.log('✅ Delivered via Peakerr! Order ID:', result.order);
+        return result.order;
+      }
+    } catch(e) { console.log('Peakerr failed, trying JAP...'); }
+  }
+
+  // Fallback to JustAnotherPanel
+  if (JAP_API_KEY && JAP_API_KEY !== 'PASTE_YOUR_JAP_API_KEY_HERE') {
+    try {
+      const result = await japPlaceOrder(serviceId, orderData.link, orderData.quantity);
+      if (result && result.order) {
+        console.log('✅ Delivered via JustAnotherPanel! Order ID:', result.order);
+        return result.order;
+      }
+    } catch(e) { console.log('JAP also failed.'); }
+  }
+
+  console.log('⚠️ Both suppliers failed — manual fulfillment needed');
+  return false;
+}
+
+// ─── STATE ───
+let currentUser  = null;
+let users        = JSON.parse(localStorage.getItem('sb_users')   || '{}');
+let orders       = JSON.parse(localStorage.getItem('sb_orders')  || '[]');
+let tickets      = JSON.parse(localStorage.getItem('sb_tickets') || '[]');
+let selectedPay  = 'monnify';
+let selectedFund = 'monnify';
+let apiKeyVisible = false;
+
+function saveData() {
+  localStorage.setItem('sb_users',   JSON.stringify(users));
+  localStorage.setItem('sb_orders',  JSON.stringify(orders));
+  localStorage.setItem('sb_tickets', JSON.stringify(tickets));
+}
+
+// ─── SERVICES DATA ───
+const SERVICES = [
+  // ── INSTAGRAM ──
+  {id:101,platform:'instagram',name:'Instagram Followers — 99 Day Refill',badges:['hot'],price:'₦2,800',min:'10',speed:'0-30 min'},
+  {id:102,platform:'instagram',name:'Instagram Followers — 99 Day Refill | Standard',badges:[],price:'₦3,000',min:'10',speed:'0-25 min'},
+  {id:103,platform:'instagram',name:'Instagram Followers — 99 Day Refill | Premium',badges:['fast'],price:'₦3,200',min:'10',speed:'0-17 min'},
+  {id:104,platform:'instagram',name:'Instagram Followers — High Quality',badges:['ng'],price:'₦2,500',min:'100',speed:'0-1 hr'},
+  {id:106,platform:'instagram',name:'Instagram Likes — Posts / IGTV / Reels',badges:['fast'],price:'₦2,000',min:'100',speed:'0-33 min'},
+  {id:108,platform:'instagram',name:'Instagram Views — Video / IGTV / Reels',badges:['fast'],price:'₦500',min:'50',speed:'0-13 min'},
+  {id:109,platform:'instagram',name:'Instagram Reels Views',badges:['hot'],price:'₦500',min:'100',speed:'0-13 min'},
+  // ── TIKTOK ──
+  {id:201,platform:'tiktok',name:'TikTok Followers — Standard',badges:['hot'],price:'₦4,500',min:'10',speed:'0-6 hrs'},
+  {id:202,platform:'tiktok',name:'TikTok Followers — Premium',badges:[],price:'₦5,580',min:'100',speed:'6-12 hrs'},
+  {id:204,platform:'tiktok',name:'TikTok Views',badges:['fast'],price:'₦250',min:'100',speed:'0-5 min'},
+  {id:205,platform:'tiktok',name:'TikTok Likes — Non Drop',badges:['ng','fast'],price:'₦1,000',min:'10',speed:'0-1 hr'},
+  {id:206,platform:'tiktok',name:'TikTok Likes — No Refill',badges:[],price:'₦800',min:'10',speed:'0-23 min'},
+  {id:207,platform:'tiktok',name:'TikTok Live Stream Views | 15 Mins',badges:[],price:'₦3,222',min:'100',speed:'0-2 hrs'},
+  {id:208,platform:'tiktok',name:'TikTok Live Stream Views | 30 Mins',badges:[],price:'₦4,744',min:'100',speed:'0-3 hrs'},
+  {id:209,platform:'tiktok',name:'TikTok Live Stream Views | 60 Mins',badges:[],price:'₦7,787',min:'100',speed:'0-5 hrs'},
+  // ── YOUTUBE ──
+  {id:301,platform:'youtube',name:'YouTube Subscribers — Nigerian 🇳🇬',badges:['ng'],price:'₦700',min:'50',speed:'1-3 hrs'},
+  {id:302,platform:'youtube',name:'YouTube Subscribers — Worldwide',badges:[],price:'₦500',min:'50',speed:'1-6 hrs'},
+  {id:303,platform:'youtube',name:'YouTube Views — Non Drop',badges:['fast'],price:'₦300',min:'500',speed:'0-30 min'},
+  {id:304,platform:'youtube',name:'YouTube Likes',badges:['fast'],price:'₦400',min:'100',speed:'0-1 hr'},
+  {id:305,platform:'youtube',name:'YouTube Watch Time (hours)',badges:[],price:'₦3,500',min:'100',speed:'3-7 days'},
+  // ── TWITTER/X ──
+  {id:401,platform:'twitter',name:'Twitter/X Likes — Nigerian 🇳🇬',badges:['ng','hot'],price:'₦1,500',min:'100',speed:'0-2 hrs'},
+  {id:402,platform:'twitter',name:'Twitter/X Retweets — Nigerian',badges:['ng'],price:'₦1,500',min:'100',speed:'0-2 hrs'},
+  {id:403,platform:'twitter',name:'Twitter/X Views + Impressions',badges:[],price:'₦800',min:'100',speed:'0-2 hrs'},
+  {id:404,platform:'twitter',name:'Twitter/X Followers — Worldwide',badges:[],price:'₦800',min:'100',speed:'0-2 hrs'},
+  // ── FACEBOOK ──
+  {id:501,platform:'facebook',name:'Facebook Page Followers — Non Drop',badges:['hot'],price:'₦3,000',min:'10',speed:'0-12 hrs'},
+  {id:503,platform:'facebook',name:'Facebook Post Likes — Nigerian',badges:['ng','fast'],price:'₦500',min:'50',speed:'0-1 hr'},
+  {id:504,platform:'facebook',name:'Facebook Video Views',badges:['fast'],price:'₦150',min:'500',speed:'0-30 min'},
+  {id:505,platform:'facebook',name:'Facebook Post Reactions',badges:[],price:'₦500',min:'50',speed:'0-2 hrs'},
+  {id:506,platform:'facebook',name:'Facebook Reels Views',badges:[],price:'₦300',min:'100',speed:'0-1 hr'},
+  {id:507,platform:'facebook',name:'Facebook Group Members',badges:[],price:'₦2,000',min:'50',speed:'1-6 hrs'},
+  // ── TELEGRAM ──
+  {id:601,platform:'telegram',name:'Telegram Channel Members',badges:['ng'],price:'₦1,500',min:'100',speed:'0-3 hrs'},
+  {id:602,platform:'telegram',name:'Telegram Channel Members — Alternative',badges:[],price:'₦800',min:'100',speed:'0-3 hrs'},
+  {id:603,platform:'telegram',name:'Telegram Post Views',badges:['fast'],price:'₦100',min:'500',speed:'0-10 min'},
+  {id:604,platform:'telegram',name:'Telegram Reactions',badges:['fast'],price:'₦300',min:'100',speed:'0-30 min'},
+  {id:605,platform:'telegram',name:'Telegram Premium Members',badges:['hot'],price:'₦5,000',min:'10',speed:'0-6 hrs'},
+  // ── WHATSAPP ──
+  {id:701,platform:'whatsapp',name:'WhatsApp Channel Members — Nigerian 🇳🇬',badges:['ng','hot'],price:'₦1,500',min:'100',speed:'0-3 hrs'},
+  {id:702,platform:'whatsapp',name:'WhatsApp Channel Members — Worldwide',badges:[],price:'₦1,200',min:'100',speed:'0-3 hrs'},
+  // ── LINKEDIN ──
+  {id:801,platform:'linkedin',name:'LinkedIn Followers — Nigerian 🇳🇬',badges:['ng'],price:'₦2,000',min:'50',speed:'1-6 hrs'},
+  {id:802,platform:'linkedin',name:'LinkedIn Connections',badges:[],price:'₦2,500',min:'50',speed:'1-12 hrs'},
+  {id:803,platform:'linkedin',name:'LinkedIn Post Likes',badges:['fast'],price:'₦800',min:'50',speed:'0-2 hrs'},
+  // ── SNAPCHAT ──
+  {id:901,platform:'snapchat',name:'Snapchat Followers',badges:[],price:'₦1,500',min:'100',speed:'1-6 hrs'},
+  {id:902,platform:'snapchat',name:'Snapchat Story Views',badges:['fast'],price:'₦300',min:'100',speed:'0-30 min'},
+  // ── PINTEREST ──
+  {id:1001,platform:'pinterest',name:'Pinterest Followers — Nigerian 🇳🇬',badges:['ng'],price:'₦1,200',min:'100',speed:'1-6 hrs'},
+  {id:1002,platform:'pinterest',name:'Pinterest Followers — Worldwide',badges:[],price:'₦800',min:'100',speed:'1-6 hrs'},
+  {id:1003,platform:'pinterest',name:'Pinterest Saves/Repins',badges:[],price:'₦500',min:'50',speed:'0-3 hrs'},
+  // ── SPOTIFY ──
+  {id:1101,platform:'spotify',name:'Spotify Followers',badges:[],price:'₦1,000',min:'100',speed:'1-6 hrs'},
+  {id:1102,platform:'spotify',name:'Spotify Free Plays',badges:['hot'],price:'₦300',min:'1000',speed:'0-2 hrs'},
+  {id:1103,platform:'spotify',name:'Spotify Monthly Listeners',badges:[],price:'₦1,500',min:'500',speed:'1-6 hrs'},
+  {id:1104,platform:'spotify',name:'Spotify Saves',badges:[],price:'₦500',min:'100',speed:'0-3 hrs'},
+  // ── THREADS ──
+  {id:1201,platform:'threads',name:'Threads Followers — Nigerian 🇳🇬',badges:['ng','hot'],price:'₦1,200',min:'100',speed:'0-3 hrs'},
+  {id:1202,platform:'threads',name:'Threads Followers — Worldwide',badges:[],price:'₦800',min:'100',speed:'0-3 hrs'},
+  {id:1203,platform:'threads',name:'Threads Likes',badges:['fast'],price:'₦300',min:'50',speed:'0-1 hr'},
+  // ── REDDIT ──
+  {id:1301,platform:'reddit',name:'Reddit Upvotes',badges:['fast'],price:'₦500',min:'20',speed:'0-30 min'},
+  {id:1302,platform:'reddit',name:'Reddit Followers',badges:[],price:'₦1,200',min:'50',speed:'1-6 hrs'},
+  {id:1303,platform:'reddit',name:'Reddit Post Karma',badges:[],price:'₦2,000',min:'50',speed:'1-12 hrs'},
+];
+
+function renderServices(filter='all', search='') {
+  const tbody = document.getElementById('svcTableBody');
+  let filtered = SERVICES;
+  if (filter !== 'all') filtered = filtered.filter(s => s.platform === filter);
+  if (search) filtered = filtered.filter(s => s.name.toLowerCase().includes(search.toLowerCase()));
+  if (!filtered.length) {
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:32px;">No services found.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = filtered.map(s => `
+    <tr>
+      <td><span class="sid">#${s.id}</span></td>
+      <td><div class="sname">${s.name}</div><div>${s.badges.map(b => `<span class="sbadge ${b}">${b==='ng'?'🇳🇬 Nigeria':b==='hot'?'🔥 HOT':b==='fast'?'⚡ Fast':b}</span>`).join('')}</div></td>
+      <td><span class="sprice">${s.price}</span></td>
+      <td><span class="smin">${s.min}</span></td>
+      <td><span class="sspeed">⚡ ${s.speed}</span></td>
+      <td><button class="btn-order" onclick="openOrderModal(9999,'${s.name.replace(/'/g,"\\'")}')">ORDER</button></td>
+    </tr>
+  `).join('');
+}
+
+let currentFilter = 'all';
+function filterServices(f, btn) {
+  currentFilter = f;
+  document.querySelectorAll('.svc-filter').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderServices(f, document.getElementById('svcSearch').value);
+}
+function searchServices(v) { renderServices(currentFilter, v); }
+// renderServices called in main DOMContentLoaded below
+
+// ─── AUTH ───
+function openAuth(tab) {
+  document.getElementById('authModal').classList.add('active');
+  switchTab(tab);
+}
+function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+function closeOnOverlay(e, id) { if (e.target === document.getElementById(id)) closeModal(id); }
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById(tab+'Tab').classList.add('active');
+  document.getElementById(tab+'Content').classList.add('active');
+}
+
+function registerUser() {
+  const name  = document.getElementById('regName').value.trim();
+  const email = document.getElementById('regEmail').value.trim();
+  const phone = document.getElementById('regPhone').value.trim();
+  const pass  = document.getElementById('regPass').value;
+  const ref   = document.getElementById('regRef').value.trim();
+  if (!name||!email||!pass) return showToast('⚠️ Missing Fields','Please fill in all required fields.',true);
+  if (!email.includes('@')) return showToast('⚠️ Invalid Email','Please enter a valid email.',true);
+  if (users[email]) return showToast('⚠️ Account Exists','This email is already registered.',true);
+  const refCode = 'SB' + Math.random().toString(36).slice(2,10).toUpperCase();
+  users[email] = { name, email, phone, pass: btoa(pass), refCode, wallet: 0, referrals: 0, apiKey: 'SB_API_' + Math.random().toString(36).slice(2,18).toUpperCase(), joined: new Date().toLocaleDateString() };
+  if (ref) {
+    const referrer = Object.values(users).find(u => u.refCode === ref);
+    if (referrer) { referrer.wallet = (referrer.wallet||0) + 500; saveData(); }
+  }
+  saveData();
+  closeModal('authModal');
+  setCurrentUser(users[email]);
+  showToast('🎉 Welcome!', `Account created! Welcome to SocialBoom, ${name}!`);
+}
+
+function loginUser() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const pass  = document.getElementById('loginPass').value;
+  if (!email||!pass) return showToast('⚠️ Missing Fields','Enter your email and password.',true);
+  const user = users[email];
+  if (!user || user.pass !== btoa(pass)) return showToast('❌ Login Failed','Wrong email or password.',true);
+  closeModal('authModal');
+  setCurrentUser(user);
+  showToast('✅ Welcome Back!', `Logged in as ${user.name}`);
+}
+
+function setCurrentUser(user) {
+  currentUser = user;
+  document.getElementById('authBtns').style.display = 'none';
+  const ub = document.getElementById('userBar');
+  ub.style.display = 'flex';
+  document.getElementById('topbarName').textContent = user.name.split(' ')[0];
+  document.getElementById('topbarBal').textContent = '₦' + (user.wallet||0).toLocaleString();
+  document.getElementById('supportFloat').style.display = 'none';
+  // Show admin button if admin
+  const adminBtn = document.getElementById('adminBtn');
+  if (user.email === ADMIN_EMAIL) { adminBtn.style.display = 'inline-block'; } else { adminBtn.style.display = 'none'; }
+}
+
+function logoutUser() {
+  currentUser = null;
+  document.getElementById('authBtns').style.display = 'flex';
+  document.getElementById('userBar').style.display = 'none';
+  document.getElementById('supportFloat').style.display = 'block';
+  closeDash();
+  showToast('👋 Logged Out', 'See you soon!');
+}
+
+// ─── DASHBOARD ───
+function openDash(sec='overview') {
+  if (!currentUser) return openAuth('login');
+  document.getElementById('dashOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+  showDashSec(sec);
+  document.getElementById('dashUserName').textContent = currentUser.name;
+  document.getElementById('dashUserEmail').textContent = currentUser.email;
+  document.getElementById('dashDate').textContent = new Date().toDateString();
+  refreshDash();
+}
+function closeDash() {
+  document.getElementById('dashOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+function showDashSec(sec) {
+  document.querySelectorAll('.dash-sec').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.dnav-item').forEach(i => i.classList.remove('active'));
+  document.getElementById('sec-'+sec).classList.add('active');
+  const titles = {overview:'OVERVIEW',neworder:'NEW ORDER',orders:'MY ORDERS',wallet:'WALLET',refer:'REFER & EARN',api:'API ACCESS',support:'SUPPORT'};
+  document.getElementById('dashSecTitle').textContent = titles[sec]||sec.toUpperCase();
+  document.querySelectorAll('.dnav-item').forEach(i => { if(i.textContent.toLowerCase().includes(sec.toLowerCase().slice(0,4))) i.classList.add('active'); });
+  if (sec==='refer') renderReferral();
+  if (sec==='orders') renderOrders();
+  if (sec==='api') renderApiKey();
+  if (sec==='support') renderTickets();
+}
+
+function refreshDash() {
+  if (!currentUser) return;
+  const myOrders  = orders.filter(o => o.email === currentUser.email);
+  const active    = myOrders.filter(o => o.status === 'Active').length;
+  const bal       = currentUser.wallet || 0;
+  document.getElementById('dTotalOrders').textContent  = myOrders.length;
+  document.getElementById('dActiveOrders').textContent = active;
+  document.getElementById('dWalletBal').textContent    = '₦' + bal.toLocaleString();
+  document.getElementById('dReferrals').textContent    = currentUser.referrals || 0;
+  document.getElementById('dashWalBal').textContent    = '₦' + bal.toLocaleString();
+  document.getElementById('walletAmount').textContent  = '₦' + bal.toFixed(2);
+  document.getElementById('topbarBal').textContent     = '₦' + bal.toLocaleString();
+}
+
+function renderOrders() {
+  const myOrders = orders.filter(o => o.email === currentUser.email);
+  const tbody = document.getElementById('ordersTableBody');
+  if (!myOrders.length) {
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:32px;">No orders yet. Place your first order! 🚀</td></tr>';
+    return;
+  }
+  tbody.innerHTML = myOrders.reverse().map(o => `
+    <tr>
+      <td style="font-family:'Space Mono',monospace;font-size:0.78rem;">${o.id.slice(0,14)}...</td>
+      <td>${o.platform}</td><td>${o.service}</td><td>${o.country||'Nigeria'}</td>
+      <td>${(o.quantity||1000).toLocaleString()}</td>
+      <td style="color:var(--accent);font-family:'Space Mono',monospace;">₦${(o.amount||0).toLocaleString()}</td>
+      <td><span class="status-badge ${o.status.toLowerCase()}">${o.status}</span></td>
+      <td style="color:var(--muted);font-size:0.8rem;">${o.date}</td>
+    </tr>
+  `).join('');
+}
+
+function renderReferral() {
+  if (!currentUser) return;
+  const link = `${location.origin}${location.pathname}?ref=${currentUser.refCode}`;
+  document.getElementById('refLinkVal').textContent = link;
+  document.getElementById('refCount').textContent   = currentUser.referrals || 0;
+  const earned = (currentUser.referrals || 0) * 500;
+  document.getElementById('refEarned').textContent  = '₦' + earned.toLocaleString();
+  document.getElementById('refPending').textContent = '₦0';
+}
+
+function renderApiKey() {
+  if (!currentUser) return;
+  document.getElementById('dashApiKey').textContent = '••••••••••••••••••••••••••';
+  apiKeyVisible = false;
+}
+
+function toggleApiKey() {
+  if (!currentUser) return;
+  apiKeyVisible = !apiKeyVisible;
+  document.getElementById('dashApiKey').textContent = apiKeyVisible ? currentUser.apiKey : '••••••••••••••••••••••••••';
+  document.querySelector('#sec-api .btn-copy').textContent = apiKeyVisible ? 'HIDE' : 'SHOW';
+}
+function copyDashApiKey() {
+  if (!currentUser) return;
+  navigator.clipboard.writeText(currentUser.apiKey).then(() => showToast('✅ Copied!','API Key copied to clipboard.'));
+}
+
+function renderTickets() {
+  const myTickets = tickets.filter(t => t.email === currentUser?.email);
+  const el = document.getElementById('ticketsList');
+  if (!myTickets.length) { el.innerHTML = '<div style="color:var(--muted);font-size:0.88rem;padding:16px 0;">No tickets yet. We\'re here if you need us! 😊</div>'; return; }
+  el.innerHTML = myTickets.reverse().map(t => `
+    <div class="ticket-item">
+      <div class="ticket-info"><div class="tsub">${t.subject}</div><div class="tid">#${t.id} · ${t.date}</div></div>
+      <span class="status-badge ${t.status.toLowerCase()}">${t.status}</span>
+    </div>
+  `).join('');
+}
+
+function submitTicket() {
+  if (!currentUser) return openAuth('login');
+  const subject = document.getElementById('ticketSubject').value;
+  const orderId = document.getElementById('ticketOrderId').value;
+  const msg     = document.getElementById('ticketMsg').value.trim();
+  if (!msg) return showToast('⚠️ Empty Message','Please describe your issue.',true);
+  const ticket = { id: 'T' + Date.now(), email: currentUser.email, subject, orderId, message: msg, status: 'Open', date: new Date().toLocaleDateString() };
+  tickets.push(ticket); saveData();
+  document.getElementById('ticketMsg').value = '';
+  renderTickets();
+  showToast('🎫 Ticket Submitted!', 'We\'ll respond within 24 hours.');
+}
+
+// ─── ORDER ───
+let currentOrderAmount = 9999;
+function openOrderModal(amount, name) {
+  if (!currentUser) return openAuth('login');
+  currentOrderAmount = amount;
+  document.getElementById('orderTitle').textContent = 'PLACE ORDER';
+  document.getElementById('orderDesc').textContent  = name || 'Fill in your details to get started.';
+  document.getElementById('orderEmail').value = currentUser.email;
+  document.getElementById('orderName').value  = currentUser.name;
+  document.getElementById('orderQuantity').value = '';
+  document.getElementById('summaryQty').textContent = '—';
+  document.getElementById('summaryRate').textContent = '—';
+  document.getElementById('summaryTotal').textContent = '₦0';
+  document.getElementById('orderModal').classList.add('active');
+}
+
+function selectPay(m) {
+  selectedPay = m;
+  document.getElementById('monnifyPay').classList.toggle('selected', m==='monnify');
+  document.getElementById('paystackPay').classList.toggle('selected', m==='paystack');
+  document.getElementById('payBtn').textContent = m==='monnify' ? '🔒 PAY WITH MONNIFY NOW' : '💳 PAY WITH PAYSTACK NOW';
+  document.getElementById('payBtn').style.background = m==='paystack' ? '#0BA4DB' : 'var(--accent)';
+}
+
+function placeOrderFromWallet() {
+  if (!currentUser) return openAuth('login');
+  const qty = parseInt(document.getElementById('dOrderQuantity').value) || 0;
+  if (qty < 100) return showToast('⚠️ Invalid Quantity','Please enter at least 100.',true);
+  const pkg = Math.ceil((qty / 1000) * RATE_PER_1000);
+  if ((currentUser.wallet||0) < pkg) return showToast('❌ Insufficient Balance',`You need ₦${pkg.toLocaleString()} but have ₦${(currentUser.wallet||0).toLocaleString()}. Please add funds.`,true);
+  const link = document.getElementById('dOrderLink').value.trim();
+  if (!link) return showToast('⚠️ Missing Link','Please enter your username or profile URL.',true);
+  currentUser.wallet = (currentUser.wallet||0) - pkg;
+  saveOrder({
+    email: currentUser.email,
+    platform: document.getElementById('dOrderPlatform').value,
+    service: document.getElementById('dOrderService').value,
+    country: document.getElementById('dOrderCountry').value,
+    link, amount: pkg, quantity: qty
+  });
+  saveData(); refreshDash();
+}
+
+function getQty(amt) { const map={9999:1000,19999:2500,34999:5000,59999:10000,99999:25000}; return map[amt]||1000; }
+
+// ─── PRICE CALCULATOR ───
+// Rate per 1000 in Naira (your profit margin built in)
+const RATE_PER_1000 = 2800; // ₦2,800 per 1000 — matching followersandviews.com
+
+function calcOrderPrice() {
+  const qty = parseInt(document.getElementById('orderQuantity').value) || 0;
+  const rate = RATE_PER_1000;
+  const total = Math.ceil((qty / 1000) * rate);
+  document.getElementById('summaryQty').textContent = qty ? qty.toLocaleString() : '—';
+  document.getElementById('summaryRate').textContent = qty ? '₦' + rate + ' / 1,000' : '—';
+  document.getElementById('summaryTotal').textContent = qty ? '₦' + total.toLocaleString() : '₦0';
+}
+
+function calcDashPrice() {
+  const qty = parseInt(document.getElementById('dOrderQuantity').value) || 0;
+  const total = Math.ceil((qty / 1000) * RATE_PER_1000);
+  document.getElementById('dSummaryQty').textContent = qty ? qty.toLocaleString() : '—';
+  document.getElementById('dSummaryTotal').textContent = qty ? '₦' + total.toLocaleString() : '₦0';
+}
+
+async function saveOrder(data) {
+  const ref = 'SB_' + Date.now() + '_' + Math.random().toString(36).slice(2,6).toUpperCase();
+  const order = { id:ref, email:data.email, platform:data.platform, service:data.service, country:data.country||'Nigeria', link:data.link||'', quantity:data.quantity||1000, amount:data.amount||9999, status:'Processing', date:new Date().toLocaleDateString(), peakerrId: null };
+  orders.push(order);
+  saveData();
+  // Auto-deliver via Peakerr
+  showToast('⚡ Processing...', 'Sending your order to our delivery system...');
+  const peakerrOrderId = await autoDeliverOrder(data);
+  if (peakerrOrderId) {
+    order.status = 'Active';
+    order.peakerrId = peakerrOrderId;
+    showToast('🚀 Order Active!', 'Your order is now being delivered automatically!');
+  } else {
+    order.status = 'Pending';
+    showToast('📦 Order Received!', 'Your order is queued and will be processed shortly.');
+  }
+  saveData();
+  refreshDash();
+}
+
+function processPayment() {
+  const email  = document.getElementById('orderEmail').value.trim();
+  const name   = document.getElementById('orderName').value.trim();
+  const qty    = parseInt(document.getElementById('orderQuantity').value) || 0;
+  if (!email||!name) return showToast('⚠️ Missing Details','Please enter your name and email.',true);
+  if (!email.includes('@')) return showToast('⚠️ Invalid Email','Enter a valid email address.',true);
+  if (qty < 100) return showToast('⚠️ Invalid Quantity','Please enter at least 100.',true);
+  const amount = Math.ceil((qty / 1000) * RATE_PER_1000);
+  closeModal('orderModal');
+  const ref = 'SB_' + Date.now() + '_' + Math.random().toString(36).slice(2,6).toUpperCase();
+  const onSuccess = async () => {
+    await saveOrder({ email, platform: document.getElementById('orderPlatform').value, service: document.getElementById('orderService').value, country: document.getElementById('orderCountry').value, link: document.getElementById('orderLink').value, amount, quantity: qty });
+    if (currentUser) { currentUser = users[email]; refreshDash(); }
+  };
+  if (selectedPay === 'paystack') {
+    const handler = PaystackPop.setup({ key: PAYSTACK_KEY, email, amount: amount * 100, currency: 'NGN', ref, callback: r => { if(r.status==='success') onSuccess(); else showToast('❌ Failed','Payment failed. Try again.',true); }, onClose: () => showToast('ℹ️ Cancelled','Payment was not completed.',true) });
+    handler.openIframe();
+  } else {
+    MonnifySDK.initialize({ amount, currency: MONNIFY_CURRENCY, reference: ref, customerFullName: name, customerEmail: email, apiKey: MONNIFY_API_KEY, contractCode: MONNIFY_CONTRACT, paymentDescription: `SocialBoom Order — ${ref}`, isTestMode: false, paymentMethods: ['CARD','ACCOUNT_TRANSFER','USSD','PHONE_NUMBER'], onComplete: r => { if(r.status==='SUCCESS'||r.paymentStatus==='PAID') onSuccess(); else showToast('❌ Failed','Payment failed.',true); }, onClose: () => showToast('ℹ️ Cancelled','Payment not completed.',true) });
+  }
+}
+  if (selectedPay === 'paystack') {
+    const handler = PaystackPop.setup({ key: PAYSTACK_KEY, email, amount: amount * 100, currency: 'NGN', ref, callback: r => { if(r.status==='success') onSuccess(); else showToast('❌ Failed','Payment failed. Try again.',true); }, onClose: () => showToast('ℹ️ Cancelled','Payment was not completed.',true) });
+    handler.openIframe();
+  } else {
+    MonnifySDK.initialize({ amount, currency: MONNIFY_CURRENCY, reference: ref, customerFullName: name, customerEmail: email, apiKey: MONNIFY_API_KEY, contractCode: MONNIFY_CONTRACT, paymentDescription: `SocialBoom Order — ${ref}`, isTestMode: false, paymentMethods: ['CARD','ACCOUNT_TRANSFER','USSD','PHONE_NUMBER'], onComplete: r => { if(r.status==='SUCCESS'||r.paymentStatus==='PAID') onSuccess(); else showToast('❌ Failed','Payment failed.',true); }, onClose: () => showToast('ℹ️ Cancelled','Payment not completed.',true) });
+  }
+}
+
+// ─── WALLET FUNDING ───
+function selectFundMethod(m) {
+  selectedFund = m;
+  ['monnify','paystack','bank'].forEach(x => document.getElementById('f'+x).classList.toggle('selected', x===m));
+}
+function addFunds() {
+  if (!currentUser) return openAuth('login');
+  const amt = parseInt(document.getElementById('fundAmount').value);
+  if (!amt || amt < 500) return showToast('⚠️ Minimum ₦500','Please enter at least ₦500.',true);
+  const ref = 'SB_FUND_' + Date.now();
+  const onSuccess = () => { currentUser.wallet = (currentUser.wallet||0) + amt; users[currentUser.email] = currentUser; saveData(); refreshDash(); showToast('✅ Wallet Funded!', `₦${amt.toLocaleString()} added to your wallet!`); };
+  if (selectedFund === 'paystack') {
+    const handler = PaystackPop.setup({ key: PAYSTACK_KEY, email: currentUser.email, amount: amt * 100, currency: 'NGN', ref, callback: r => { if(r.status==='success') onSuccess(); else showToast('❌ Failed','Payment failed.',true); }, onClose: () => showToast('ℹ️ Cancelled','Not completed.',true) });
+    handler.openIframe();
+  } else {
+    MonnifySDK.initialize({ amount: amt, currency: MONNIFY_CURRENCY, reference: ref, customerFullName: currentUser.name, customerEmail: currentUser.email, apiKey: MONNIFY_API_KEY, contractCode: MONNIFY_CONTRACT, paymentDescription: 'SocialBoom Wallet Top-Up', isTestMode: false, paymentMethods: ['CARD','ACCOUNT_TRANSFER','USSD','PHONE_NUMBER'], onComplete: r => { if(r.status==='SUCCESS'||r.paymentStatus==='PAID') onSuccess(); else showToast('❌ Failed','Payment failed.',true); }, onClose: () => showToast('ℹ️ Cancelled','Not completed.',true) });
+  }
+}
+
+// ─── HELPERS ───
+function copyRefLink() {
+  if (!currentUser) return;
+  const link = `${location.origin}${location.pathname}?ref=${currentUser.refCode}`;
+  navigator.clipboard.writeText(link).then(() => showToast('✅ Copied!','Referral link copied!'));
+}
+function shareRef(p) {
+  const link = encodeURIComponent(`${location.origin}${location.pathname}?ref=${currentUser?.refCode}`);
+  const text = encodeURIComponent('Join SocialBoom — Nigeria\'s #1 SMM Panel! Get real followers, likes & views. Use my link:');
+  const urls = { whatsapp:`https://wa.me/?text=${text}%20${link}`, facebook:`https://facebook.com/sharer/sharer.php?u=${link}`, twitter:`https://twitter.com/intent/tweet?text=${text}&url=${link}` };
+  window.open(urls[p],'_blank');
+}
+function copyApiKey() {
+  if (!currentUser) return;
+  navigator.clipboard.writeText(currentUser.apiKey).then(() => showToast('✅ Copied!','API Key copied!'));
+}
+function showToast(title, msg, isError=false) {
+  const t = document.getElementById('toast');
+  document.getElementById('toastTitle').textContent = title;
+  document.getElementById('toastMsg').textContent   = msg;
+  t.style.borderColor = isError ? 'var(--accent3)' : 'var(--accent)';
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 5000);
+}
+function scrollToTop() { window.scrollTo({top:0,behavior:'smooth'}); }
+
+// ─── ADMIN CONFIG ───
+const ADMIN_EMAIL    = 'asuquoephraim85@gmail.com';
+const ADMIN_PASSWORD = 'SocialBoom@Admin2026';
+
+// ─── ADMIN FUNCTIONS ───
+function openAdmin() {
+  if (!currentUser || currentUser.email !== ADMIN_EMAIL) return showToast('❌ Access Denied','Admin only!',true);
+  document.getElementById('adminOverlay').classList.add('active');
+  document.getElementById('adminDate').textContent = new Date().toDateString();
+  document.body.style.overflow = 'hidden';
+  refreshAdmin();
+}
+function closeAdmin() {
+  document.getElementById('adminOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+function showAdminSec(sec, btn) {
+  document.querySelectorAll('.admin-sec').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.admin-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('asec-'+sec).classList.add('active');
+  btn.classList.add('active');
+  refreshAdmin();
+}
+
+function refreshAdmin() {
+  const allOrders  = orders;
+  const allUsers   = Object.values(users);
+  const pending    = allOrders.filter(o => o.status === 'Pending' || o.status === 'Processing');
+  const active     = allOrders.filter(o => o.status === 'Active');
+  const revenue    = allOrders.reduce((s,o) => s + (o.amount||0), 0);
+  const openTickets = tickets.filter(t => t.status === 'Open');
+
+  // Stats
+  document.getElementById('aTotalOrders').textContent  = allOrders.length;
+  document.getElementById('aPendingOrders').textContent = pending.length;
+  document.getElementById('aActiveOrders').textContent  = active.length;
+  document.getElementById('aTotalUsers').textContent    = allUsers.length;
+  document.getElementById('aTotalRevenue').textContent  = '₦' + revenue.toLocaleString();
+  document.getElementById('aTotalTickets').textContent  = openTickets.length;
+
+  // Recent pending
+  const rpl = document.getElementById('recentPendingList');
+  if (!pending.length) {
+    rpl.innerHTML = '<div style="color:var(--muted);font-size:0.88rem;">✅ No pending orders! All fulfilled.</div>';
+  } else {
+    rpl.innerHTML = pending.slice(0,5).map(o => `
+      <div style="background:var(--card2);border:1px solid rgba(245,196,0,0.2);padding:12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+        <div>
+          <div style="font-weight:700;font-size:0.88rem;">${o.platform} — ${o.service}</div>
+          <div style="font-family:'Space Mono',monospace;font-size:0.75rem;color:var(--accent2);margin:3px 0;">${o.link||'No link'}</div>
+          <div style="font-size:0.75rem;color:var(--muted);">${o.email} · ${o.quantity?.toLocaleString()||1000} qty · ₦${(o.amount||0).toLocaleString()}</div>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <button class="copy-link" onclick="copyText('${o.link||''}')">📋 COPY LINK</button>
+          <button class="btn-complete" onclick="markComplete('${o.id}')">✅ DONE</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // Revenue by platform
+  const platRev = {};
+  allOrders.forEach(o => { platRev[o.platform] = (platRev[o.platform]||0) + (o.amount||0); });
+  const rbp = document.getElementById('revByPlatform');
+  rbp.innerHTML = Object.entries(platRev).sort((a,b)=>b[1]-a[1]).map(([p,r]) => `
+    <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(42,42,62,0.4);font-size:0.88rem;">
+      <span>${p}</span>
+      <span style="color:var(--accent);font-family:'Space Mono',monospace;font-weight:700;">₦${r.toLocaleString()}</span>
+    </div>
+  `).join('') || '<div style="color:var(--muted);font-size:0.88rem;">No revenue data yet.</div>';
+
+  // All orders table
+  renderAdminOrders(allOrders);
+
+  // Pending table
+  const pb = document.getElementById('pendingOrdersBody');
+  pb.innerHTML = pending.length ? pending.map(o => `
+    <tr>
+      <td style="font-family:'Space Mono',monospace;font-size:0.72rem;color:var(--muted);">${o.id.slice(0,16)}...</td>
+      <td style="font-size:0.8rem;">${o.email}</td>
+      <td>${o.platform}</td>
+      <td>${o.service}</td>
+      <td>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <span style="font-family:'Space Mono',monospace;font-size:0.75rem;color:var(--accent2);max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${o.link||'—'}</span>
+          <button class="copy-link" onclick="copyText('${o.link||''}')">📋</button>
+        </div>
+      </td>
+      <td style="font-family:'Space Mono',monospace;">${(o.quantity||1000).toLocaleString()}</td>
+      <td style="color:var(--accent);font-family:'Space Mono',monospace;">₦${(o.amount||0).toLocaleString()}</td>
+      <td style="color:var(--muted);font-size:0.78rem;">${o.date}</td>
+      <td>
+        <div style="display:flex;gap:4px;">
+          <button class="btn-complete" onclick="markComplete('${o.id}')">✅ Done</button>
+          <button class="btn-cancel-order" onclick="markCancelled('${o.id}')">✕</button>
+        </div>
+      </td>
+    </tr>
+  `).join('') : '<tr><td colspan="9" style="text-align:center;color:var(--muted);padding:24px;">✅ No pending orders!</td></tr>';
+
+  // Users table
+  renderAdminUsers(allUsers);
+
+  // Tickets table
+  const tb = document.getElementById('adminTicketsBody');
+  tb.innerHTML = tickets.length ? tickets.reverse().map(t => `
+    <tr>
+      <td style="font-family:'Space Mono',monospace;font-size:0.75rem;">#${t.id}</td>
+      <td style="font-size:0.8rem;">${t.email}</td>
+      <td>${t.subject}</td>
+      <td style="font-family:'Space Mono',monospace;font-size:0.75rem;">${t.orderId||'—'}</td>
+      <td style="max-width:200px;font-size:0.8rem;color:var(--muted);">${t.message?.slice(0,60)}...</td>
+      <td><span class="status-badge ${t.status.toLowerCase()}">${t.status}</span></td>
+      <td style="font-size:0.78rem;color:var(--muted);">${t.date}</td>
+      <td><button class="btn-complete" onclick="closeTicket('${t.id}')">Close</button></td>
+    </tr>
+  `).join('') : '<tr><td colspan="8" style="text-align:center;color:var(--muted);padding:24px;">No tickets yet.</td></tr>';
+}
+
+function renderAdminOrders(list) {
+  const tbody = document.getElementById('adminOrdersBody');
+  tbody.innerHTML = list.length ? list.slice().reverse().map(o => `
+    <tr>
+      <td style="font-family:'Space Mono',monospace;font-size:0.72rem;color:var(--muted);">${o.id.slice(0,14)}...</td>
+      <td style="font-size:0.8rem;">${o.email}</td>
+      <td>${o.platform}</td>
+      <td>${o.service}</td>
+      <td>
+        <div style="display:flex;align-items:center;gap:4px;">
+          <span style="font-family:'Space Mono',monospace;font-size:0.72rem;color:var(--accent2);max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${o.link||'—'}</span>
+          ${o.link ? `<button class="copy-link" onclick="copyText('${o.link}')">📋</button>` : ''}
+        </div>
+      </td>
+      <td style="font-family:'Space Mono',monospace;">${(o.quantity||1000).toLocaleString()}</td>
+      <td style="color:var(--accent);font-family:'Space Mono',monospace;">₦${(o.amount||0).toLocaleString()}</td>
+      <td><span class="status-badge ${o.status?.toLowerCase()}">${o.status}</span></td>
+      <td style="font-size:0.78rem;color:var(--muted);">${o.date}</td>
+      <td>
+        <div style="display:flex;gap:4px;">
+          ${o.status!=='Completed'?`<button class="btn-complete" onclick="markComplete('${o.id}')">✅</button>`:''}
+          ${o.status!=='Cancelled'?`<button class="btn-cancel-order" onclick="markCancelled('${o.id}')">✕</button>`:''}
+        </div>
+      </td>
+    </tr>
+  `).join('') : '<tr><td colspan="10" style="text-align:center;color:var(--muted);padding:24px;">No orders yet.</td></tr>';
+}
+
+function renderAdminUsers(list) {
+  const tbody = document.getElementById('adminUsersBody');
+  tbody.innerHTML = list.length ? list.map(u => {
+    const userOrders = orders.filter(o => o.email === u.email);
+    return `
+    <tr>
+      <td style="font-weight:600;">${u.name}</td>
+      <td style="font-size:0.8rem;color:var(--accent2);">${u.email}</td>
+      <td style="font-size:0.8rem;">${u.phone||'—'}</td>
+      <td style="color:var(--accent);font-family:'Space Mono',monospace;">₦${(u.wallet||0).toLocaleString()}</td>
+      <td style="text-align:center;">${userOrders.length}</td>
+      <td style="text-align:center;">${u.referrals||0}</td>
+      <td style="font-size:0.78rem;color:var(--muted);">${u.joined||'—'}</td>
+    </tr>
+  `}).join('') : '<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:24px;">No users yet.</td></tr>';
+}
+
+function filterAdminOrders(search) {
+  const filtered = orders.filter(o =>
+    o.email?.toLowerCase().includes(search.toLowerCase()) ||
+    o.platform?.toLowerCase().includes(search.toLowerCase()) ||
+    o.link?.toLowerCase().includes(search.toLowerCase()) ||
+    o.service?.toLowerCase().includes(search.toLowerCase())
+  );
+  renderAdminOrders(filtered);
+}
+
+function filterByStatus(status) {
+  const filtered = status === 'all' ? orders : orders.filter(o => o.status === status);
+  renderAdminOrders(filtered);
+}
+
+function filterAdminUsers(search) {
+  const filtered = Object.values(users).filter(u =>
+    u.name?.toLowerCase().includes(search.toLowerCase()) ||
+    u.email?.toLowerCase().includes(search.toLowerCase())
+  );
+  renderAdminUsers(filtered);
+}
+
+function markComplete(orderId) {
+  const order = orders.find(o => o.id === orderId);
+  if (order) { order.status = 'Completed'; saveData(); refreshAdmin(); showToast('✅ Order Completed!', `Order ${orderId.slice(0,14)} marked as completed.`); }
+}
+
+function markCancelled(orderId) {
+  const order = orders.find(o => o.id === orderId);
+  if (order) { order.status = 'Cancelled'; saveData(); refreshAdmin(); showToast('✕ Order Cancelled', `Order cancelled.`, true); }
+}
+
+function closeTicket(ticketId) {
+  const ticket = tickets.find(t => t.id === ticketId);
+  if (ticket) { ticket.status = 'Closed'; saveData(); refreshAdmin(); showToast('✅ Ticket Closed', 'Ticket has been closed.'); }
+}
+
+function copyText(text) {
+  if (!text) return showToast('⚠️ Nothing to copy','No link available.',true);
+  navigator.clipboard.writeText(text).then(() => showToast('📋 Copied!', 'Link copied to clipboard!'));
+}
+
+// ─── INIT ───
+window.addEventListener('DOMContentLoaded', () => {
+  renderServices();
+  const ref = new URLSearchParams(location.search).get('ref');
+  if (ref) { document.getElementById('regRef').value = ref; openAuth('register'); }
+  document.getElementById('dashDate').textContent = new Date().toDateString();
+});
+</script>
+</body>
+</html>
